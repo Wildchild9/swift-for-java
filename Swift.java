@@ -8,9 +8,7 @@ package com.noahwilder.Swift;
 //  Copyright © 2018 Noah Wilder. All rights reserved.
 //
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 // Current top class
@@ -20,11 +18,8 @@ class SwiftBase extends SwiftMath { }
 @SuppressWarnings({"FinalStaticMethod", "unused", "RedundantExplicitVariableType", "SingleStatementInBlock", "VariableArgumentMethod", "MethodCanBeVariableArityMethod"})
 public class Swift extends SwiftBase {
 
-    private static Byte number;
-
     // Allows Swift to be subclassed
     public Swift() { }
-
 
 
 //████████████████████████████████████████████████████████████████████████████████████████████████████████
@@ -34,11 +29,7 @@ public class Swift extends SwiftBase {
 
 //  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 //  Method Testing Area
-    public static void main(String[] args) {
-
-//
-
-    }
+    public static void main(String[] args) { }
 
 //████████████████████████████████████████████████████████████████████████████████████████████████████████
 //██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜████████████████████████████████████████████████████████████████████████████████

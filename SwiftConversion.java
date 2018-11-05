@@ -8,6 +8,9 @@ package com.noahwilder.Swift;
 //  Copyright © 2018 Noah Wilder. All rights reserved.
 //
 
+import java.util.ArrayList;
+
+
 class SwiftConversion {
 
     // Int conversion methods
@@ -279,4 +282,11 @@ class SwiftConversion {
         return n.toString();
     }
 
+    // SwiftArray conversion methods
+    public static SwiftArray SwiftArray(ArrayList arrayList) {
+        return new SwiftArray(arrayList);
+    }
+    public static SwiftArray SwiftArray() {
+        return new SwiftArray();
+    }
 }

@@ -9,9 +9,10 @@ package com.noahwilder.Swift;
 //
 
 import java.math.BigDecimal;
-import java.util.Random;
+import java.util.*;
 
 
+@SuppressWarnings({"unused", "SingleStatementInBlock", "ConstantExpression", "ControlFlowStatementWithoutBraces", "MethodRefCanBeReplacedWithLambda", "StreamToLoop", "UnnecessaryFullyQualifiedName", "unchecked", "AssertionCanBeIf", "ConditionalExpression", "LoopConditionNotUpdatedInsideLoop", "ConfusingElseBranch", "UnnecessaryLocalVariable", "TooBroadScope", "FrequentlyUsedInheritorInspection", "RedundantExplicitVariableType", "VariableTypeCanBeExplicit", "Convert2MethodRef", "Convert2streamapi", "OptionalGetWithoutIsPresent", "UnusedAssignment"})
 class SwiftMath extends SwiftConversion {
 
     public static int lcm(final int x, final int y) {
@@ -148,7 +149,7 @@ class SwiftMath extends SwiftConversion {
         var i = 2L;
 
         while (i <= (long) Math.sqrt(n)) {
-            if (i % n == 0) {
+            if (n % i == 0) {
                 return false;
             }
         }
@@ -165,7 +166,7 @@ class SwiftMath extends SwiftConversion {
         var i = 2;
 
         while (i <= (int) Math.sqrt(n)) {
-            if (i % n == 0) {
+            if (n % i == 0) {
                 return false;
             }
         }
@@ -275,6 +276,89 @@ class SwiftMath extends SwiftConversion {
         return n < 0L ? -factorial : factorial;
 
 
+    }
+
+    private static <T extends Number> T add(T x, T y) {
+
+        if (x == null || y == null) {
+            return null;
+        }
+
+        if (x instanceof Double) {
+            return (T) Double.valueOf(x.doubleValue() + y.doubleValue());
+        } else if (x instanceof Integer) {
+            return (T) Integer.valueOf(x.intValue() + y.intValue());
+        } else {
+            throw new IllegalArgumentException("Type " + x.getClass() + " is not supported by this method");
+        }
+    }
+
+
+    public static <T extends Number> double average(Collection<T> collection) {
+        return collection.stream().mapToDouble(i -> i.doubleValue()).average().getAsDouble();
+        //return collection.stream().reduce((x, y) -> add(x, y)).get().doubleValue() / (double) collection.size();
+    }
+    @SafeVarargs
+    public static <T extends Number> double average(T...          numbers)    {
+        return Arrays.stream(numbers).reduce((x, y) -> add(x, y)).get().doubleValue() / (double) numbers.length;
+    }
+
+    public static <T> T mode(Collection<T> collection) {
+        var dict = new HashMap<T, Integer>();
+        for (var n : collection) {
+            if (dict.containsKey(n)) {
+                dict.replace(n, dict.get(n) + 1);
+            } else {
+                dict.put(n, 1);
+            }
+        }
+        return Collections.max(dict.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
+
+    }
+    @SafeVarargs
+    public static <T> T mode(T...          numbers) {
+        var dict = new HashMap<T, Integer>();
+        for (var n : numbers) {
+            if (dict.containsKey(n)) {
+                dict.replace(n, dict.get(n) + 1);
+            } else {
+                dict.put(n, 1);
+            }
+        }
+
+        return Collections.max(dict.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
+    }
+
+
+    public static <T extends Number> double median(Collection<T> collection) {
+        assert collection.size() > 0 : "Collection must contain at least 1 element to find the median";
+
+        if (collection.size() % 2 == 0) {
+            final var sortedArr = collection.stream().mapToDouble(i -> i.doubleValue()).sorted().toArray();
+            final var idx = sortedArr.length / 2;
+            return (sortedArr[idx] + sortedArr[idx + 1]) / 2.0d;
+        } else {
+            return collection.stream().mapToDouble(i -> i.doubleValue()).sorted().toArray()[collection.size() / 2];
+        }
+    }
+    public static <T extends Number> double median(T...          numbers)    {
+        assert numbers.length > 0 : "Input must contain at least 1 element to find the median";
+
+        if (numbers.length % 2 == 0) {
+            final var sortedArr = Arrays.stream(numbers).mapToDouble(i -> i.doubleValue()).sorted().toArray();
+            final var idx = sortedArr.length / 2;
+            return (sortedArr[idx] + sortedArr[idx + 1]) / 2.0d;
+        } else {
+            return Arrays.stream(numbers).mapToDouble(i -> i.doubleValue()).sorted().toArray()[numbers.length / 2];
+        }
+    }
+
+    public static <T extends Number> T sum(Collection<T> collection) {
+        return collection.stream().reduce((x, y) -> add(x, y)).get();
+    }
+    @SafeVarargs
+    public static <T extends Number> T sum(T...          numbers)    {
+        return Arrays.stream(numbers).reduce((x, y) -> add(x, y)).get();
     }
 
 
@@ -1084,9 +1168,7 @@ class SwiftMath extends SwiftConversion {
         public static int addExact(int x, int y) {
         int r = x + y;
         // HD 2-12 Overflow iff both arguments have the opposite sign of the result
-        if (((x ^ r) & (y ^ r)) < 0) {
-            throw new ArithmeticException("integer overflow");
-        }
+            assert ((x ^ r) & (y ^ r)) >= 0 : "integer overflow";
         return r;
     }
 
@@ -1103,9 +1185,7 @@ class SwiftMath extends SwiftConversion {
         public static long addExact(long x, long y) {
         long r = x + y;
         // HD 2-12 Overflow iff both arguments have the opposite sign of the result
-        if (((x ^ r) & (y ^ r)) < 0) {
-            throw new ArithmeticException("long overflow");
-        }
+            assert ((x ^ r) & (y ^ r)) >= 0 : "long overflow";
         return r;
     }
 
@@ -1123,9 +1203,7 @@ class SwiftMath extends SwiftConversion {
         int r = x - y;
         // HD 2-12 Overflow iff the arguments have different signs and
         // the sign of the result is different from the sign of x
-        if (((x ^ y) & (x ^ r)) < 0) {
-            throw new ArithmeticException("integer overflow");
-        }
+            assert ((x ^ y) & (x ^ r)) >= 0 : "integer overflow";
         return r;
     }
 
@@ -1143,9 +1221,7 @@ class SwiftMath extends SwiftConversion {
         long r = x - y;
         // HD 2-12 Overflow iff the arguments have different signs and
         // the sign of the result is different from the sign of x
-        if (((x ^ y) & (x ^ r)) < 0) {
-            throw new ArithmeticException("long overflow");
-        }
+            assert ((x ^ y) & (x ^ r)) >= 0 : "long overflow";
         return r;
     }
 
@@ -1161,9 +1237,7 @@ class SwiftMath extends SwiftConversion {
      */
         public static int multiplyExact(int x, int y) {
         long r = (long)x * (long)y;
-        if ((int)r != r) {
-            throw new ArithmeticException("integer overflow");
-        }
+            assert (int) r == r : "integer overflow";
         return (int)r;
     }
 
@@ -1199,10 +1273,7 @@ class SwiftMath extends SwiftConversion {
             // Some bits greater than 2^31 that might cause overflow
             // Check the result using the divide operator
             // and check for the special case of Long.MIN_VALUE * -1
-            if (((y != 0) && (r / y != x)) ||
-                (x == Long.MIN_VALUE && y == -1)) {
-                throw new ArithmeticException("long overflow");
-            }
+            assert ((y == 0) || (r / y == x)) && (x != Long.MIN_VALUE || y != -1) : "long overflow";
         }
         return r;
     }
@@ -1217,9 +1288,7 @@ class SwiftMath extends SwiftConversion {
      * @since 1.8
      */
         public static int incrementExact(int a) {
-        if (a == Integer.MAX_VALUE) {
-            throw new ArithmeticException("integer overflow");
-        }
+            assert a != Integer.MAX_VALUE : "integer overflow";
 
         return a + 1;
     }
@@ -1234,9 +1303,7 @@ class SwiftMath extends SwiftConversion {
      * @since 1.8
      */
         public static long incrementExact(long a) {
-        if (a == Long.MAX_VALUE) {
-            throw new ArithmeticException("long overflow");
-        }
+            assert a != Long.MAX_VALUE : "long overflow";
 
         return a + 1L;
     }
@@ -1251,9 +1318,7 @@ class SwiftMath extends SwiftConversion {
      * @since 1.8
      */
         public static int decrementExact(int a) {
-        if (a == Integer.MIN_VALUE) {
-            throw new ArithmeticException("integer overflow");
-        }
+            assert a != Integer.MIN_VALUE : "integer overflow";
 
         return a - 1;
     }
@@ -1268,9 +1333,7 @@ class SwiftMath extends SwiftConversion {
      * @since 1.8
      */
         public static long decrementExact(long a) {
-        if (a == Long.MIN_VALUE) {
-            throw new ArithmeticException("long overflow");
-        }
+            assert a != Long.MIN_VALUE : "long overflow";
 
         return a - 1L;
     }
@@ -1285,9 +1348,7 @@ class SwiftMath extends SwiftConversion {
      * @since 1.8
      */
         public static int negateExact(int a) {
-        if (a == Integer.MIN_VALUE) {
-            throw new ArithmeticException("integer overflow");
-        }
+            assert a != Integer.MIN_VALUE : "integer overflow";
 
         return -a;
     }
@@ -1302,9 +1363,7 @@ class SwiftMath extends SwiftConversion {
      * @since 1.8
      */
         public static long negateExact(long a) {
-        if (a == Long.MIN_VALUE) {
-            throw new ArithmeticException("long overflow");
-        }
+            assert a != Long.MIN_VALUE : "long overflow";
 
         return -a;
     }
@@ -1319,9 +1378,7 @@ class SwiftMath extends SwiftConversion {
      * @since 1.8
      */
     public static int toIntExact(long value) {
-        if ((int)value != value) {
-            throw new ArithmeticException("integer overflow");
-        }
+        assert (int) value == value : "integer overflow";
         return (int)value;
     }
 
