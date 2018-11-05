@@ -1,5 +1,19 @@
 package com.noahwilder.Swift;
 
+/*
+ *
+ * SwiftArray.java
+ * ComputerScience
+ *
+ *
+ * Last modified on 05/11/18 5:56 PM.
+ *
+ * Copyright © 2018 Noah Wilder. All rights reserved.
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ *
+ */
+
 import com.sun.jdi.IntegerValue;
 
 import java.util.*;

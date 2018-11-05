@@ -1,12 +1,18 @@
 package com.noahwilder.Swift;
 
-//
-//  ComputerScience
-//  SwiftMath
-//
-//  Created by Noah Wilder on 2018-11-01.
-//  Copyright © 2018 Noah Wilder. All rights reserved.
-//
+/*
+ *
+ * SwiftMath.java
+ * ComputerScience
+ *
+ *
+ * Last modified on 05/11/18 5:40 PM.
+ *
+ * Copyright © 2018 Noah Wilder. All rights reserved.
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ *
+ */
 
 import java.math.BigDecimal;
 import java.util.*;

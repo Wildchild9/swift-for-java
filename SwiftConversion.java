@@ -1,12 +1,18 @@
 package com.noahwilder.Swift;
 
-//
-//  ComputerScience
-//  SwiftConversion
-//
-//  Created by Noah Wilder on 2018-11-01.
-//  Copyright © 2018 Noah Wilder. All rights reserved.
-//
+/*
+ *
+ * SwiftConversion.java
+ * ComputerScience
+ *
+ *
+ * Last modified on 05/11/18 5:55 PM.
+ *
+ * Copyright © 2018 Noah Wilder. All rights reserved.
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.txt', which is part of this source code package.
+ *
+ */
 
 import java.util.ArrayList;
 
