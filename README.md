@@ -128,8 +128,10 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 -  `average(numbers:)` - returns a `double` value indicating the average of a variadic list of `numbers`
 -  `median(collection:)` - returns a `double` value indicating the median of a `collection` with numeric elements
 -  `median(numbers:)` - returns a `double` value indicating the median of a variadic list of `numbers`
-- `mode(collection:)` - returns the mode of a `collection` 
-- `mode(elements:)` - returns the mode of a variadic list of `elements`
+- `mode(collection:)` - returns the first mode of a `collection` 
+- `mode(elements:)` - returns the first mode of a variadic list of `elements`
+- `modes(collection:)` - returns a `SwifArray` containing the modes of a `collection` 
+- `modes(elements:)` - returns the a `SwiftArray` containing the modes of a variadic list of `elements`
 - `sum(collection:)` - returns the sum of all values in a `collection` containing numeric elements
 - `sum(numbers:)` - returns the sum of a variadic list of `numbers`
 

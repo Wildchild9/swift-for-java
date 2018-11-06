@@ -14,6 +14,7 @@ package SwiftFramework.Swift;
  *
  */
 
+import SwiftFramework.Swift.SwiftArray;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -286,28 +287,16 @@ class SwiftMath extends SwiftConversion {
         }
     }
 
-
-    public static <T extends Number> double average(Collection<T> collection) {
-        return collection.stream().mapToDouble(i -> i.doubleValue()).average().getAsDouble();
-        //return collection.stream().reduce((x, y) -> add(x, y)).get().doubleValue() / (double) collection.size();
-    }
     @SafeVarargs
     public static <T extends Number> double average(T...          numbers)    {
         return Arrays.stream(numbers).reduce((x, y) -> add(x, y)).get().doubleValue() / (double) numbers.length;
     }
-
-    public static <T> T mode(Collection<T> collection) {
-        var dict = new HashMap<T, Integer>();
-        for (var n : collection) {
-            if (dict.containsKey(n)) {
-                dict.replace(n, dict.get(n) + 1);
-            } else {
-                dict.put(n, 1);
-            }
-        }
-        return Collections.max(dict.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
-
+    public static <T extends Number> double average(Collection<T> collection) {
+        return collection.stream().mapToDouble(i -> i.doubleValue()).average().getAsDouble();
+        //return collection.stream().reduce((x, y) -> add(x, y)).get().doubleValue() / (double) collection.size();
     }
+
+
     @SafeVarargs
     public static <T> T mode(T...          elements) {
         var dict = new HashMap<T, Integer>();
@@ -321,19 +310,66 @@ class SwiftMath extends SwiftConversion {
 
         return Collections.max(dict.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
     }
-
-
-    public static <T extends Number> double median(Collection<T> collection) {
-        assert collection.size() > 0 : "Collection must contain at least 1 element to find the median";
-
-        if (collection.size() % 2 == 0) {
-            final var sortedArr = collection.stream().mapToDouble(i -> i.doubleValue()).sorted().toArray();
-            final var idx = sortedArr.length / 2;
-            return (sortedArr[idx] + sortedArr[idx + 1]) / 2.0d;
-        } else {
-            return collection.stream().mapToDouble(i -> i.doubleValue()).sorted().toArray()[collection.size() / 2];
+    public static <T> T mode(Collection<T> collection) {
+        var dict = new HashMap<T, Integer>();
+        for (var n : collection) {
+            if (dict.containsKey(n)) {
+                dict.replace(n, dict.get(n) + 1);
+            } else {
+                dict.put(n, 1);
+            }
         }
+        return Collections.max(dict.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
+
     }
+
+    @SafeVarargs
+    public static <T> SwiftArray<T> modes(T...        collection) {
+        var dict = new HashMap<T, Integer>();
+        for (var n : collection) {
+            if (dict.containsKey(n)) {
+                dict.replace(n, dict.get(n) + 1);
+            } else {
+                dict.put(n, 1);
+            }
+        }
+        var maxCount = 0;
+        var modes = SwiftArray();
+        for (var pair : dict.entrySet()) {
+            if (pair.getValue() > maxCount) {
+                modes.clear();
+                modes.append(pair.getKey());
+                maxCount = pair.getValue();
+            } else if (pair.getValue() == maxCount) {
+                modes.append(pair.getKey());
+            }
+        }
+        return modes;
+    }
+    public static <T> SwiftArray<T> modes(Collection<T> elements) {
+        var dict = new HashMap<T, Integer>();
+        for (var n : elements) {
+            if (dict.containsKey(n)) {
+                dict.replace(n, dict.get(n) + 1);
+            } else {
+                dict.put(n, 1);
+            }
+        }
+        var maxCount = 0;
+        var modes = SwiftArray();
+        for (var pair : dict.entrySet()) {
+            if (pair.getValue() > maxCount) {
+                modes.clear();
+                modes.append(pair.getKey());
+                maxCount = pair.getValue();
+            } else if (pair.getValue() == maxCount) {
+                modes.append(pair.getKey());
+            }
+        }
+        return modes;
+    }
+
+    @SafeVarargs
     public static <T extends Number> double median(T...          numbers)    {
         assert numbers.length > 0 : "Input must contain at least 1 element to find the median";
 
@@ -345,14 +381,27 @@ class SwiftMath extends SwiftConversion {
             return Arrays.stream(numbers).mapToDouble(i -> i.doubleValue()).sorted().toArray()[numbers.length / 2];
         }
     }
+    public static <T extends Number> double median(Collection<T> collection) {
+        assert collection.size() > 0 : "Collection must contain at least 1 element to find the median";
 
-    public static <T extends Number> T sum(Collection<T> collection) {
-        return collection.stream().reduce((x, y) -> add(x, y)).get();
+        if (collection.size() % 2 == 0) {
+            final var sortedArr = collection.stream().mapToDouble(i -> i.doubleValue()).sorted().toArray();
+            final var idx = sortedArr.length / 2;
+            return (sortedArr[idx] + sortedArr[idx + 1]) / 2.0d;
+        } else {
+            return collection.stream().mapToDouble(i -> i.doubleValue()).sorted().toArray()[collection.size() / 2];
+        }
     }
+
+
     @SafeVarargs
     public static <T extends Number> T sum(T...          numbers)    {
         return Arrays.stream(numbers).reduce((x, y) -> add(x, y)).get();
     }
+    public static <T extends Number> T sum(Collection<T> collection) {
+        return collection.stream().reduce((x, y) -> add(x, y)).get();
+    }
+
 
 
 
