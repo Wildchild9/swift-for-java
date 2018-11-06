@@ -287,6 +287,9 @@ class SwiftConversion {
     public static String String(Byte n) {
         return n.toString();
     }
+    public static <T> String String(T s) {
+        return s.toString();
+    }
 
     // SwiftArray conversion methods
     public static SwiftArray SwiftArray(ArrayList arrayList) {
