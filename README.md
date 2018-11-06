@@ -12,7 +12,7 @@ To enable assertions, go to **Run > Edit Configurations > Swift** and type `-ea`
 
 
 
-##Swift Methods
+## Swift Methods
 
 ### Print
 - `print()` - prints an empty line
@@ -68,22 +68,20 @@ To enable assertions, go to **Run > Edit Configurations > Swift** and type `-ea`
 
 Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautifully clear type conversions.
 
-####Examples:
+#### Examples:
 
-````
-// Conversion from double to int
-int integerN = Int(3.1415926d);
+	// Conversion from double to int
+	int integerN = Int(3.1415926d);
+	
+	// Conversion from int to double
+	double doubleN = Double(2);
+	
+	// Conversion from int to long
+	long longN = Long(592);
+	
+	// Conversion from double to String
+	String string = String(12345.6789);
 
-// Conversion from int to double
-double doubleN = Double(2);
-
-// Conversion from int to long
-long longN = Long(592);
-
-// Conversion from double to String
-String string = String(12345.6789);
-
-````
 
 **Types with support for _Swift-styled conversion_:** 
 
@@ -105,4 +103,4 @@ String string = String(12345.6789);
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
