@@ -88,7 +88,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         assert count >= 0 : "Cannot use a negative value as the count of a SwiftArray";
         assert lowerBound <= upperBound : "Can't form Range with upperBound < lowerBound";
         final var r = new Random();
-        return new SwiftArray<Double>(r.doubles(count, lowerBound, upperBound).boxed().collect(Collectors.toList()));
+        return new SwiftArray<Double>(r.doubles(count, lowerBound, upperBound).boxed().collect(Collectors.toList())).map(i -> i.roun);
 
     }
     public final static SwiftArray<Long> repeatingRandom(long lowerBound, long upperBound, long count) {
@@ -594,8 +594,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 //██▌   Matching Methods   ▐██████████████████████████████████████████████████████████████████████████████
 //██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟██████████████████████████████████████████████████████████████████████████████
 
-    // Returns true if all match a predicate
-    public final boolean allMatch(Predicate<Element> predicate) {
+    // Returns true if all elements satisfy a predicate
+    public final boolean allSatisfy(Predicate<Element> predicate) {
         for (Element element : this) {
             if (!predicate.test(element)) {
                 return false;
@@ -605,8 +605,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return true;
     }
 
-    // Return true if none match a predicate
-    public final boolean noneMatch(Predicate<Element> predicate) {
+    // Return true if no elements satisfy a predicate
+    public final boolean noneSatisfy(Predicate<Element> predicate) {
         for (Element element : this) {
             if (predicate.test(element)) {
                 return false;

@@ -291,7 +291,7 @@ class SwiftConversion {
         return s.toString();
     }
 
-    // SwiftArray conversion methods
+    // SwiftArray conversion and initializer methods
     public static SwiftArray SwiftArray(ArrayList arrayList) {
         return new SwiftArray(arrayList);
     }
