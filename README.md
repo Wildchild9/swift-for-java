@@ -81,8 +81,8 @@ If you would like to use the `SwiftArray` class, add the following line to your 
  	- `reverse(str:)` - reverses `str`
 	- `reverse(list:)` - reverses `lists`
 
----
-### Swift-styled Conversion
+
+## Swift-styled Conversion
 
 Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautiful and clear type conversions.
 
@@ -112,8 +112,8 @@ Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautif
 * `new String(value)` → `String(value)`
 
 
----
-### Swift Math
+
+## Swift Math
 
 Swift Math contains all of the same methods included within `java.util.Math` along with an array of additional functions to make your life easier.
 
