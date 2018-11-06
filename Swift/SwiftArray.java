@@ -88,7 +88,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         assert count >= 0 : "Cannot use a negative value as the count of a SwiftArray";
         assert lowerBound <= upperBound : "Can't form Range with upperBound < lowerBound";
         final var r = new Random();
-        return new SwiftArray<Double>(r.doubles(count, lowerBound, upperBound).boxed().collect(Collectors.toList())).map(i -> i.roun);
+        return new SwiftArray<Double>(r.doubles(count, lowerBound, upperBound).boxed().collect(Collectors.toList())).map(i -> i);
 
     }
     public final static SwiftArray<Long> repeatingRandom(long lowerBound, long upperBound, long count) {
@@ -98,6 +98,109 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return new SwiftArray<Long>(r.longs(count, lowerBound, upperBound).boxed().collect(Collectors.toList()));
 
     }
+    public final static SwiftArray<Double> repeatingRandom(double lowerBound, double upperBound, int decimalPlaces, long count) {
+        assert count >= 0 : "Cannot use a negative value as the count of a SwiftArray";
+        assert lowerBound <= upperBound : "Can't form Range with upperBound < lowerBound";
+        assert decimalPlaces >= 0: "Cannot have a number with negative decimal places";
+
+        final var r = new Random();
+        return new SwiftArray<Double>(r.doubles(count, lowerBound, upperBound).boxed().collect(Collectors.toList())).map(i -> {
+            long factor = (long) Math.pow(10, decimalPlaces);
+            var value = i * factor;
+            var tmp = Math.round(value);
+            return (double) tmp / factor;
+        });
+
+    }
+
+    // Stride
+    public final static SwiftArray<Integer> strideTo(int    n, int    from, int    by) {
+        assert from < n: "Cannot form range with upperBound < lowerBound";
+
+        var arr = new SwiftArray<Integer>();
+
+        for (var i = from; i < n; i += by) {
+            arr.append(i);
+        }
+
+        return arr;
+    }
+    public final static SwiftArray<Float>   strideTo(float  n, float  from, float  by) {
+        assert from < n: "Cannot form range with upperBound < lowerBound";
+
+        var arr = new SwiftArray<Float>();
+        for (var i = from; i < n; i += by) {
+            arr.append(i);
+        }
+
+        return arr;
+    }
+    public final static SwiftArray<Double>  strideTo(double n, double from, double by) {
+        assert from < n: "Cannot form range with upperBound < lowerBound";
+
+        var arr = new SwiftArray<Double>();
+        for (var i = from; i < n; i += by) {
+            arr.append(i);
+        }
+
+        return arr;
+    }
+    public final static SwiftArray<Long>    strideTo(long   n, long   from, long   by) {
+        assert from < n: "Cannot form range with upperBound < lowerBound";
+
+        var arr = new SwiftArray<Long>();
+        for (var i = from; i < n; i += by) {
+            arr.append(i);
+        }
+
+        return arr;
+    }
+
+    public final static SwiftArray<Integer> strideThrough(int    n, int    from, int    by) {
+        assert from <= n: "Cannot form range with upperBound < lowerBound";
+
+        var arr = new SwiftArray<Integer>();
+        for (var i = from; i <= n; i += by) {
+            arr.append(i);
+        }
+
+        return arr;
+    }
+    public final static SwiftArray<Float>   strideThrough(float  n, float  from, float  by) {
+        assert from <= n: "Cannot form range with upperBound < lowerBound";
+
+        var arr = new SwiftArray<Float>();
+        for (var i = from; i <= n; i += by) {
+            arr.append(i);
+        }
+
+        return arr;
+    }
+    public final static SwiftArray<Double>  strideThrough(double n, double from, double by) {
+        assert from <= n: "Cannot form range with upperBound < lowerBound";
+
+        var arr = new SwiftArray<Double>();
+        for (var i = from; i <= n; i += by) {
+            arr.append(i);
+        }
+
+        return arr;
+    }
+    public final static SwiftArray<Long>    strideThrough(long   n, long   from, long   by) {
+        assert from <= n: "Cannot form range with upperBound < lowerBound";
+
+        var arr = new SwiftArray<Long>();
+        for (var i = from; i <= n; i += by) {
+            arr.append(i);
+        }
+
+        return arr;
+    }
+
+
+
+
+
 
     // Conversion
     public final ArrayList<Element> toArrayList() {
