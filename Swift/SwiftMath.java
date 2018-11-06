@@ -49,19 +49,6 @@ class SwiftMath extends SwiftConversion {
         return a;
     }
 
-    public static int square(final int n) {
-        return n * n;
-    }
-    public static double square(final double n) {
-        return n * n;
-    }
-    public static float square(final float n) {
-        return n * n;
-    }
-    public static long square(final long n) {
-        return n * n;
-    }
-
     public static SwiftArray<Long> factors(final long of) {
 
         var factors = new SwiftArray<Long>();
@@ -322,9 +309,9 @@ class SwiftMath extends SwiftConversion {
 
     }
     @SafeVarargs
-    public static <T> T mode(T...          numbers) {
+    public static <T> T mode(T...          elements) {
         var dict = new HashMap<T, Integer>();
-        for (var n : numbers) {
+        for (var n : elements) {
             if (dict.containsKey(n)) {
                 dict.replace(n, dict.get(n) + 1);
             } else {
@@ -3028,3 +3015,32 @@ class SwiftMath extends SwiftConversion {
 
 
 }
+
+
+/*
+    public static int square(final int n) {
+        return n * n;
+    }
+    public static double square(final double n) {
+        return n * n;
+    }
+    public static float square(final float n) {
+        return n * n;
+    }
+    public static long square(final long n) {
+        return n * n;
+    }
+
+    public static int cube(final int n) {
+        return n * n * n;
+    }
+    public static double cube(final double n) {
+        return n * n * n;
+    }
+    public static float cube(final float n) {
+        return n * n * n;
+    }
+    public static long cube(final long n) {
+        return n * n * n;
+    }
+ */

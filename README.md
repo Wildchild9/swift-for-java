@@ -1,6 +1,8 @@
 # Swift for Java
 Introduction of similar Swift types, functions, and methods in Java.
 
+![swift java logo](https://user-images.githubusercontent.com/35314567/48043647-b7632d00-e155-11e8-9db9-cdd25d43bb2e.png)
+
 ## Installation
 
 1. Download *swift-for-java* as a .zip file.
@@ -101,7 +103,7 @@ Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautif
 
 **Types with support for _Swift-styled conversion_:** 
 
-* `(int) value` → `Int(value)`
+* `(int) value` ≈ `Int(value)`
 * `(double) value` → `Double(value)`
 * `(float) value` → `Float(value)`
 * `(long) value` → `Long(value)`
@@ -113,10 +115,41 @@ Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautif
 ---
 ### Swift Math
 
-Swift Math contains all of the same methods included within `java.util.Math`
+Swift Math contains all of the same methods included within `java.util.Math` along with an array of additional functions to make your life easier.
+
+- `lcm(x:y:)` - returns the lowest common multiplier of `x` and `y`
+- `factors(of:)` - returns a `SwiftArray` containing the factors of an integral value
+- `primeFactors(of:)` - returns a `SwiftArray` containing the prime factors of an integral value
+- `primality(of:)` - returns a `boolean` value indicating whether an integral value is prime.
+- `isPalindromic(n:)` - returns a `boolean` value indicating whether a value is a palindrome
+- `concatenate(x:y:)` - returns the value of `x` and `y` concatenated
+- `factorial(n:)` - returns the value of `n!`
+- `average(collection:)` - returns a `double` value indicating the average of a `collection` with numeric elements
+-  `average(numbers:)` - returns a `double` value indicating the average of a variadic list of `numbers`
+-  `median(collection:)` - returns a `double` value indicating the median of a `collection` with numeric elements
+-  `median(numbers:)` - returns a `double` value indicating the median of a variadic list of `numbers`
+- `mode(collection:)` - returns the mode of a `collection` 
+- `mode(elements:)` - returns the mode of a variadic list of `elements`
+- `sum(collection:)` - returns the sum of all values in a `collection` containing numeric elements
+- `sum(numbers:)` - returns the sum of a variadic list of `numbers`
+
 				    
-	
-    
+## Dusk Color Theme
+
+This IntelliJ color theme a near replica of Xcode's beautiful dusk color theme for Java.
+
+### Installation
+
+1. Then, inside IntelliJ, navigate to **File > IntelliJ Idea > Prefereces > Editor > Color Scheme > General**.
+
+2. From there, select the gear icon to the right of the "Scheme" field. Continue to select **Import Scheme > Intellij IDEA color scheme (.icls) or settings (.jar)**.
+
+3. Inside the popup window of Finder, navigate to the downloaded project folder and select the file Dusk.icls and click "open".
+
+4. Now hit "Apply", then "OK" in the bottom right of the IntelliJ preferences pane.
+
+5. Finally your IntelliJ color scheme should be reminiscent of the Xcode's beautiful Dusk color scheme. Enjoy!
+
     
 
 
