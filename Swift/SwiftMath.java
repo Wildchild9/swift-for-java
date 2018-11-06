@@ -6,11 +6,11 @@ package SwiftFramework.Swift;
  * ComputerScience
  *
  *
- * Last modified on 05/11/18 10:51 PM.
+ * Last modified on 06/11/18 12:10 AM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
- * file 'LICENSE.txt', which is part of this source code package.
+ * file 'LICENSE, which is part of this source code package.
  *
  */
 
