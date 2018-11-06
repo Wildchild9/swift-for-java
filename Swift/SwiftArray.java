@@ -38,7 +38,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
             this.add(element);
         }
     }
-    
+
     // Array from range
     public final static SwiftArray<Integer> fromRange(Integer lowerBound, Integer upperBound) {
         assert lowerBound <= upperBound:  "Can't form Range with upperBound < lowerBound";
