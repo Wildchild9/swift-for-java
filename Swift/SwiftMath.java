@@ -1,4 +1,4 @@
-package com.noahwilder.Swift;
+package SwiftFramework.Swift;
 
 /*
  *
@@ -6,7 +6,7 @@ package com.noahwilder.Swift;
  * ComputerScience
  *
  *
- * Last modified on 05/11/18 5:40 PM.
+ * Last modified on 05/11/18 10:51 PM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in

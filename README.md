@@ -1,18 +1,21 @@
-# Swift for Java
-Introduction of similar Swift types, functions, and methods in Java.
+# SwiftFramework for Java
+Introduction of similar SwiftFramework types, functions, and methods in Java.
 
 ## Installation
 
+## Usage
+
+Be sure to do `class CLASSNAME extends SwiftFramework` 
     
 
 ## Compiler Flags
 Please enable assertions in your compiler settings using the flag `-ea`.
 
-To enable assertions, go to **Run > Edit Configurations > Swift** and type `-ea` in the field labeled "VM Options".
+To enable assertions, go to **Run > Edit Configurations > SwiftFramework** and type `-ea` in the field labeled "VM Options".
 
 
 
-## Swift Methods
+## SwiftFramework Methods
 
 ### Print
 - `print()` - prints an empty line
@@ -64,9 +67,9 @@ To enable assertions, go to **Run > Edit Configurations > Swift** and type `-ea`
 	- `reverse(list:)` - reverses `lists`
 
 ---
-### Swift-styled Conversion
+### SwiftFramework-styled Conversion
 
-Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautifully clear type conversions.
+Ditch Java's wierd conversion syntax of `(targetType) value` for SwiftFramework's beautifully clear type conversions.
 
 #### Examples:
 
@@ -92,7 +95,12 @@ Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautif
 * `(short) value` → `Short(value)`
 * `(byte) value` → `Byte(value)`
 * `new String(value)` → `String(value)`
-		
+
+
+---
+### SwiftFramework Math
+
+SwiftFramework Math contains all of the same methods included within `java.util.Math`
 				    
 	
     
@@ -103,4 +111,3 @@ Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautif
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
----

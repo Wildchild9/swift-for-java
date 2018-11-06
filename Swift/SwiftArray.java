@@ -1,4 +1,4 @@
-package com.noahwilder.Swift;
+package SwiftFramework.Swift;
 
 /*
  *
@@ -6,15 +6,13 @@ package com.noahwilder.Swift;
  * ComputerScience
  *
  *
- * Last modified on 05/11/18 5:56 PM.
+ * Last modified on 05/11/18 10:51 PM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE.txt', which is part of this source code package.
  *
  */
-
-import com.sun.jdi.IntegerValue;
 
 import java.util.*;
 import java.util.function.*;
@@ -40,6 +38,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
             this.add(element);
         }
     }
+    
     // Array from range
     public final static SwiftArray<Integer> fromRange(Integer lowerBound, Integer upperBound) {
         assert lowerBound <= upperBound:  "Can't form Range with upperBound < lowerBound";
