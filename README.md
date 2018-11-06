@@ -84,7 +84,7 @@ If you would like to use the `SwiftArray` class, add the following line to your 
 ---
 ### Swift-styled Conversion
 
-Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautifully clear type conversions.
+Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautiful and clear type conversions.
 
 #### Examples:
 
