@@ -103,4 +103,8 @@ Ditch Java's wierd conversion syntax of `(targetType) value` for Swift's beautif
 
 ## License
 
+<<<<<<< HEAD
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+=======
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+>>>>>>> ace51e23fbc65076bda344402d41ca8440f373da
