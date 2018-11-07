@@ -21,7 +21,7 @@ Please enable assertions in your compiler settings using the flag `-ea`.
 To enable assertions, go to **Run > Edit Configurations > Swift** and type `-ea` in the field labeled "VM Options".
 
 ### Setup
-Please ensure that both your version of IntelliJ IDEA and version of Java is updated to the most recent versions. Also, please ensure that your project language level is set to the highest number (not including *X - Experimental Features*).
+Please ensure that both your version of IntelliJ IDEA and version of Java are updated to the most recent versions. Also, please ensure that your project language level is set to the highest number (not including *X - Experimental Features*).
 
 - [Java version 11.0.1](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
 - [IntelliJ IDEA 2018.2.5 (Community Edition)](https://download.jetbrains.com/idea/ideaIC-2018.2.5.dmg)
