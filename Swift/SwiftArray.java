@@ -77,28 +77,28 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     }
 
     // Array repeating random element
-    public final static SwiftArray<Integer> repeatingRandom(int lowerBound, int upperBound, int count) {
+    public final static SwiftArray<Integer> repeatingRandom(int    lowerBound, int    upperBound, int  count) {
         assert count >= 0 : "Cannot use a negative value as the count of a SwiftArray";
         assert lowerBound <= upperBound : "Can't form Range with upperBound < lowerBound";
         final var r = new Random();
         return new SwiftArray<Integer>(r.ints(count, lowerBound, upperBound).boxed().collect(Collectors.toList()));
 
     }
-    public final static SwiftArray<Double> repeatingRandom(double lowerBound, double upperBound, long count) {
+    public final static SwiftArray<Double>  repeatingRandom(double lowerBound, double upperBound, long count) {
         assert count >= 0 : "Cannot use a negative value as the count of a SwiftArray";
         assert lowerBound <= upperBound : "Can't form Range with upperBound < lowerBound";
         final var r = new Random();
         return new SwiftArray<Double>(r.doubles(count, lowerBound, upperBound).boxed().collect(Collectors.toList())).map(i -> i);
 
     }
-    public final static SwiftArray<Long> repeatingRandom(long lowerBound, long upperBound, long count) {
+    public final static SwiftArray<Long>    repeatingRandom(long   lowerBound, long   upperBound, long count) {
         assert count >= 0 : "Cannot use a negative value as the count of a SwiftArray";
         assert lowerBound <= upperBound : "Can't form Range with upperBound < lowerBound";
         final var r = new Random();
         return new SwiftArray<Long>(r.longs(count, lowerBound, upperBound).boxed().collect(Collectors.toList()));
 
     }
-    public final static SwiftArray<Double> repeatingRandom(double lowerBound, double upperBound, int decimalPlaces, long count) {
+    public final static SwiftArray<Double>  repeatingRandom(double lowerBound, double upperBound, int  decimalPlaces, long count) {
         assert count >= 0 : "Cannot use a negative value as the count of a SwiftArray";
         assert lowerBound <= upperBound : "Can't form Range with upperBound < lowerBound";
         assert decimalPlaces >= 0: "Cannot have a number with negative decimal places";
@@ -115,10 +115,10 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 
     // Stride
     public final static SwiftArray<Integer> strideTo(int    n, int    from, int    by) {
-        assert from < n: "Cannot form range with upperBound < lowerBound";
+        assert from < n : "Cannot form range with upperBound < lowerBound";
+        assert by > 0 : "Cannot stride by value less than or equal to zero";
 
         var arr = new SwiftArray<Integer>();
-
         for (var i = from; i < n; i += by) {
             arr.append(i);
         }
@@ -126,8 +126,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return arr;
     }
     public final static SwiftArray<Float>   strideTo(float  n, float  from, float  by) {
-        assert from < n: "Cannot form range with upperBound < lowerBound";
-
+        assert from < n : "Cannot form range with upperBound < lowerBound";
+        assert by > 0 : "Cannot stride by value less than or equal to zero";
         var arr = new SwiftArray<Float>();
         for (var i = from; i < n; i += by) {
             arr.append(i);
@@ -136,8 +136,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return arr;
     }
     public final static SwiftArray<Double>  strideTo(double n, double from, double by) {
-        assert from < n: "Cannot form range with upperBound < lowerBound";
-
+        assert from < n : "Cannot form range with upperBound < lowerBound";
+        assert by > 0 : "Cannot stride by value less than or equal to zero";
         var arr = new SwiftArray<Double>();
         for (var i = from; i < n; i += by) {
             arr.append(i);
@@ -146,8 +146,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return arr;
     }
     public final static SwiftArray<Long>    strideTo(long   n, long   from, long   by) {
-        assert from < n: "Cannot form range with upperBound < lowerBound";
-
+        assert from < n : "Cannot form range with upperBound < lowerBound";
+        assert by > 0 : "Cannot stride by value less than or equal to zero";
         var arr = new SwiftArray<Long>();
         for (var i = from; i < n; i += by) {
             arr.append(i);
@@ -157,8 +157,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     }
 
     public final static SwiftArray<Integer> strideThrough(int    n, int    from, int    by) {
-        assert from <= n: "Cannot form range with upperBound < lowerBound";
-
+        assert from <= n : "Cannot form range with upperBound < lowerBound";
+        assert by > 0 : "Cannot stride by value less than or equal to zero";
         var arr = new SwiftArray<Integer>();
         for (var i = from; i <= n; i += by) {
             arr.append(i);
@@ -167,8 +167,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return arr;
     }
     public final static SwiftArray<Float>   strideThrough(float  n, float  from, float  by) {
-        assert from <= n: "Cannot form range with upperBound < lowerBound";
-
+        assert from <= n : "Cannot form range with upperBound < lowerBound";
+        assert by > 0 : "Cannot stride by value less than or equal to zero";
         var arr = new SwiftArray<Float>();
         for (var i = from; i <= n; i += by) {
             arr.append(i);
@@ -177,8 +177,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return arr;
     }
     public final static SwiftArray<Double>  strideThrough(double n, double from, double by) {
-        assert from <= n: "Cannot form range with upperBound < lowerBound";
-
+        assert from <= n : "Cannot form range with upperBound < lowerBound";
+        assert by > 0 : "Cannot stride by value less than or equal to zero";
         var arr = new SwiftArray<Double>();
         for (var i = from; i <= n; i += by) {
             arr.append(i);
@@ -187,8 +187,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return arr;
     }
     public final static SwiftArray<Long>    strideThrough(long   n, long   from, long   by) {
-        assert from <= n: "Cannot form range with upperBound < lowerBound";
-
+        assert from <= n : "Cannot form range with upperBound < lowerBound";
+        assert by > 0 : "Cannot stride by value less than or equal to zero";
         var arr = new SwiftArray<Long>();
         for (var i = from; i <= n; i += by) {
             arr.append(i);
@@ -243,32 +243,6 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     }
 
 
-//██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜███████████████████████████████████████████████████████████████████
-//██▌    Computed Property Methods    ▐███████████████████████████████████████████████████████████████████
-//██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟███████████████████████████████████████████████████████████████████
-
-    // Count
-    public final int count() {
-        return size();
-    }
-
-    // Count
-    public final Integer countInteger() {
-        return Integer.valueOf(size());
-    }
-
-    // Indices
-    public final SwiftArray<Integer> indices() {
-
-        SwiftArray<Integer> indices = new SwiftArray<Integer>();
-        if (size() > 0) {
-            for (Integer i = 0; i < size(); i++) {
-                indices.add(i);
-            }
-        }
-        return indices;
-    }
-
 
 //██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜██████████████████████████████████████████████████████████████████████
 //██▌   Element Adding Methods   ▐██████████████████████████████████████████████████████████████████████
@@ -304,16 +278,43 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 
     }
 
+    // Insert elements in collection at index in SwiftArray
+    public final <T extends Collection<Element>> void insert(T contentsOf, int atIndex) {
+        assert atIndex >= 0 && atIndex < size() : "SwiftArray index for insertion is out of bounds";
+
+        for (Element element : contentsOf) {
+            this.add(atIndex, element);
+        }
+
+    }
+
+    // Insert elements in iterable type in SwiftArray
+    public final <T extends Iterable<Element>> void insert(T contentsOf, int atIndex) {
+        assert atIndex >= 0 && atIndex < size() : "SwiftArray index for insertion is out of bounds";
+
+        for (Element element : contentsOf) {
+            this.add(atIndex, element);
+        }
+
+    }
+
+
+
 //██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜███████████████████████████████████████████████████████████████████████████
 //██▌     Removal Methods     ▐███████████████████████████████████████████████████████████████████████████
 //██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟███████████████████████████████████████████████████████████████████████████
 
+
+    // Remove at index
+    public final Element removeElement(int atIndex) {
+        return this.remove(atIndex);
+    }
     // Remove First/Last
     public final Element removeFirst() {
-        return remove(0);
+        return this.remove(0);
     }
     public final Element removeLast() {
-        return remove(size() - 1);
+        return this.remove(size() - 1);
     }
 
     // Remove First/Last n elements
@@ -331,9 +332,9 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     }
 
 
-//██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜███████████████████████████████████████████████████████████████████████████
-//██▌     Dropping Methods     ▐███████████████████████████████████████████████████████████████████████████
-//██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟███████████████████████████████████████████████████████████████████████████
+//██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜██████████████████████████████████████████████████████████████████████████
+//██▌     Excluding Methods     ▐██████████████████████████████████████████████████████████████████████████
+//██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟██████████████████████████████████████████████████████████████████████████
 
     // Drop First/Last
     public final SwiftArray<Element> dropFirst() {
@@ -450,10 +451,10 @@ public class SwiftArray<Element> extends ArrayList<Element> {
      public final Optional<Element> first() {
 
         return size() >= 1 ? Optional.of(this.get(0)) : Optional.empty();
-    }
+     }
      public final Optional<Element> last () {
         return size() >= 1 ? Optional.of(this.get(size() - 1)) : Optional.empty();
-    }
+     }
 
     // High-order First/Last element where predicate is met
      public final Optional<Element> firstWhere(Predicate<Element> predicate) {
@@ -464,7 +465,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         }
         return Optional.empty();
 
-    }
+     }
      public final Optional<Element> lastWhere (Predicate<Element> predicate) {
         for (int i = this.size() - 1; i >= 0; i--) {
             final Element element = this.get(i);
@@ -474,7 +475,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         }
         return Optional.empty();
 
-    }
+     }
 
     // High-order First/Last index where predicate is met
      public final Optional<Integer> firstIndexWhere(Predicate<Element> predicate) {
@@ -486,7 +487,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         }
         return Optional.empty();
 
-    }
+     }
      public final Optional<Integer> lastIndexWhere (Predicate<Element> predicate) {
         for (int i = this.size() - 1; i >= 0; i--) {
             final Element element = this.get(i);
@@ -496,7 +497,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         }
         return Optional.empty();
 
-    }
+     }
 
 
 //██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜███████████████████████████████████████████████████████████████████████████
@@ -731,6 +732,37 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     }
 
 
+
+//██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜███████████████████████████████████████████████████████████████████████████████
+//██▌    Other Methods    ▐███████████████████████████████████████████████████████████████████████████████
+//██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟███████████████████████████████████████████████████████████████████████████████
+
+    // Count
+    public final int count() {
+        return size();
+    }
+
+    // Indices
+    public final SwiftArray<Integer> indices() {
+
+        SwiftArray<Integer> indices = new SwiftArray<Integer>();
+        if (size() > 0) {
+            for (Integer i = 0; i < size(); i++) {
+                indices.add(i);
+            }
+        }
+        return indices;
+    }
+
+    // Start index
+    public final int startIndex() {
+        return 0;
+    }
+
+    // End index
+    public final int endIndex() {
+        return size() + 1;
+    }
+
 ////▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██████████████████████████████████████████████████████████████████████████████████████
 } //▌ END OF CLASS  ██████████████████████████████████████████████████████████████████████████████████████
-
