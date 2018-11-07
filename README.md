@@ -176,6 +176,10 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `sum(numbers:)` - returns the sum of a variadic list of `numbers`
 
+
+---
+
+
 ## Swift Array
 `SwiftArray` is an array class that contains all of the functions found in Swift's `Collection` protocol and many more. `SwiftArray` is incredibly versatile and brings many of Java's high order functions buried under `Stream` to the surface with an ease of use.
 
@@ -401,7 +405,8 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 - `reserveCapacity(n:)` - reserves enough space to store the specified number of elements
 - `toSlice(lowerBound:upperBound:)` - returns a new array containing the elements from the lowerBound to the upperBound (inclusive)
 
-   ---
+---
+
 
 ## Dusk Color Theme
 
