@@ -187,6 +187,9 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `new SwiftArray(iterableElements:)` - an array containing the contents any type that is iterable (implements `Iterable`) including `ArrayList`, `Stack`, `LinkedList`, etc.
 
+    ---
+
+
 #### Static Initializers
 
 - `SwiftArray.fromRange(lowerBound:upperBound:)` - an array containing all the numbers in an inclusive range bounded by `lowerBound` and `upperBound`
@@ -204,7 +207,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 **Note:** the word *"array"* in this context refers to a new object of `SwiftArray`.
 
-
+----
 
 ### Outputting Methods
 
@@ -218,6 +221,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `dump()` - dumps the array
 
+    ---
 
 ### Element Adding Methods
 
@@ -231,13 +235,15 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `insert(contentsOf:atIndex:)` - inserts the elements of a sequence into the array at the specified position
 
+    ---
 
 ### Count Methods
 
-`count()` - the number of elements in the array
+- `count()` - the number of elements in the array
 
-`count(predicate:)` - returns a count of the elements in the array that satisfy a given predicate
+- `count(predicate:)` - returns a count of the elements in the array that satisfy a given predicate
 
+  ---
 
 ### Index Methods
 
@@ -251,6 +257,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `swapAt(i:j:)` - exchanges the values at the specified indices of the array
 
+    ---
 
 ### Removal Methods
 
@@ -266,6 +273,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `removeAllWhere(predicate:)` - removes all the elements that satisfy the given predicate.
 
+    ---
 
 ### Excluding Methods
 
@@ -279,6 +287,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `drop(predicate:)` - returns an array by skipping elements while `predicate` returns `true` and returning the remaining elements
 
+    ---
 
 ### Prefix & Suffix Methods
 
@@ -300,6 +309,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `suffixWhile(predicate:)` - returns an array containing the final elements until `predicate` returns `false` and skipping the remaining elements
 
+    ---
 
 ### First & Last Methods
 
@@ -315,6 +325,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `lastIndexWhere(predicate:)` - returns the index of the last element in the array that matches the given predicate
 
+    ---
 
 ### Randomized Methods
 
@@ -326,6 +337,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `shuffled()` - returns the elements of the array, shuffled
 
+    ---
 
 ### Sorting Methods
 
@@ -337,6 +349,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `sorted(comparator:)` - returns the elements of the array, sorted using the given predicate as the comparison between elements
 
+    ---
 
 ### Maximum & Minimum
 
@@ -344,6 +357,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `min(comparator:)` - returns the minimum element in the array, using the given predicate as the comparison between elements
 
+    ---
 
 ### Reverse methods
 
@@ -351,6 +365,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `reversed()` - returns the elements of the array, reversed
 
+     ---
 
 ### Joining Methods
 
@@ -358,6 +373,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `joined(separator:)` - returns a new string by concatenating the elements of the array, adding the given separator between each element
 
+    ---
 
 ### Transformation Methods
 
@@ -367,6 +383,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `reduce(accumulator:)` - returns the result of combining the elements of the array using the given accumulator
 
+    ---
 
 ### Element Matching Methods
 
@@ -377,12 +394,14 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `noneSatisfy(predicate:)` - returns a boolean value indicating whether no elements of an array satisfies a given predicate
 
+  ---
 
 ### Other Methods
 
 - `reserveCapacity(n:)` - reserves enough space to store the specified number of elements
 - `toSlice(lowerBound:upperBound:)` - returns a new array containing the elements from the lowerBound to the upperBound (inclusive)
 
+   ---
 
 ## Dusk Color Theme
 
