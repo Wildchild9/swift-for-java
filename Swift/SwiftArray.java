@@ -516,7 +516,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     public final int randomIndex() {
         assert !this.isEmpty(): "Cannot return value from an empty array";
 
-        int randomIdx = ThreadLocalRandom.current().nextInt(0, size());
+        var randomIdx = ThreadLocalRandom.current().nextInt(0, size());
         return randomIdx;
     }
 
@@ -554,6 +554,10 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     // Default sorting
     public final SwiftArray<Element> sorted() {
         return new SwiftArray<Element>(this.stream().sorted().collect(Collectors.toList()));
+    }
+    public final void sort() {
+        this.clear();
+        this.addAll(this.stream().sorted().collect(Collectors.toList()));
     }
 
     // High-order sorting by comparator
@@ -593,15 +597,6 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return swiftArray;
     }
 
-    // Swap at indices
-    public void swapAt(int i, int j) {
-        final Element x = this.get(i);
-        final Element y = this.get(j);
-
-        this.set(i, y);
-        this.set(j, x);
-    }
-
 
 //██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜████████████████████████████████████████████████████████████████████████████
 //██▌    Joining Methods     ▐████████████████████████████████████████████████████████████████████████████
@@ -633,8 +628,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     }
 
     // Mapping method
-     public final <T> SwiftArray<T> map(Function<Element, T> mapper) {
-        return new SwiftArray<>(this.stream().map(mapper).collect(Collectors.toList()));
+     public final <T> SwiftArray<T> map(Function<Element, T> transform) {
+        return new SwiftArray<>(this.stream().map(transform).collect(Collectors.toList()));
     }
 
     // Reduce with binary operator
@@ -762,6 +757,15 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     // End index
     public final int endIndex() {
         return size() + 1;
+    }
+
+    // Swap at indices
+    public void swapAt(int i, int j) {
+        final Element x = this.get(i);
+        final Element y = this.get(j);
+
+        this.set(i, y);
+        this.set(j, x);
     }
 
 ////▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██████████████████████████████████████████████████████████████████████████████████████

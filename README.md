@@ -204,15 +204,19 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 **Note:** the word *"array"* in this context refers to a new object of `SwiftArray`.
 
+
+
 ### Outputting Methods
 
-- `print()` - prints an array
+- `print()` - prints the array
 
-- `printr()` - prints and returns an array
+- `printr()` - prints and returns the array
 
-- `print(separator:)` - prints an array with its elements separated by a `separator`
+- `print(separator:)` - prints the array with its elements separated by a `separator`
 
-- `printr(separator:)` - prints an array with its elements separated by a `separator` and returns the array
+- `printr(separator:)` - prints and returns the array with its elements separated by a `separator`
+
+- `dump()` - dumps the array
 
 
 ### Element Adding Methods
@@ -226,6 +230,26 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 - `insert(element:atIndex:)` - inserts a new element at the specified position
 
 - `insert(contentsOf:atIndex:)` - inserts the elements of a sequence into the array at the specified position
+
+
+### Count Methods
+
+`count()` - the number of elements in the array
+
+`count(predicate:)` - returns a count of the elements in the array that satisfy a given predicate
+
+
+### Index Methods
+
+- `hasIndex(idx:)` - returns boolean value indicating the validity of the given index in the array
+
+- `indices()` - an array containing the integral indices of an array
+
+- `startIndex()` - the position of the first element in a nonempty array
+
+- `endIndex()` - the array’s “past the end” position—that is, the position one greater than the last valid index
+
+- `swapAt(i:j:)` - exchanges the values at the specified indices of the array
 
 
 ### Removal Methods
@@ -258,6 +282,8 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 ### Prefix & Suffix Methods
 
+#### Prefix Methods
+
 - `prefix(n:)` - returns an array, up to the specified maximum length, containing the initial elements of the array
 
 - `prefixThrough(index:)`- returns an array from the start of the initial array through the specified position
@@ -266,25 +292,97 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `prefixWhile(predicate:)` - returns an array containing the initial elements until `predicate` returns `false` and skipping the remaining elements
 
+#### Suffix Methods
+
 - `suffix(n:)` - returns an array, up to the given maximum length, containing the final elements of the initial array
 
 - `suffixFrom(index:)` - returns an array from the specified position to the end of the initial array
 
 - `suffixWhile(predicate:)` - returns an array containing the final elements until `predicate` returns `false` and skipping the remaining elements
 
+
+### First & Last Methods
+
+- `first()` - the first element of the array
+
+- `firstWhere(predicate:)` - returns the first element of the array that satisfies the given predicate
+
+- `firstIndexWhere(predicate:)` - returns the first index in which an element of the array satisfies the given predicate
+
+- `last()` - the last element of the array
+
+- `lastWhere(predicate:)` - returns the last element of the array that satisfies the given predicate
+
+- `lastIndexWhere(predicate:)` - returns the index of the last element in the array that matches the given predicate
+
+
+### Randomized Methods
+
+- `randomElement()` - returns a random element of the array
+
+- `randomIndex()` - returns a random index of the array
+
+- `shuffle()` - shuffles the array in place
+
+- `shuffled()` - returns the elements of the array, shuffled
+
+
+### Sorting Methods
+
+- `sort()` - sorts the array in places
+
+- `sort(c:)` - sorts the array in place, using the given predicate as the comparison between elements
+
+- `sorted()` - returns the elements of the array, sorted
+
+- `sorted(comparator:)` - returns the elements of the array, sorted using the given predicate as the comparison between elements
+
+
+### Maximum & Minimum
+
+- `max(comparator:)` - returns the maximum element in the array, using the given predicate as the comparison between elements
+
+- `min(comparator:)` - returns the minimum element in the array, using the given predicate as the comparison between elements
+
+
+### Reverse methods
+
+- `reverse()` - reverses the elements of the array in place
+
+- `reversed()` - returns the elements of the array, reversed
+
+
+### Joining Methods
+
+- `joined()` - returns a new string by concatenating the elements of the array
+
+- `joined(separator:)` - returns a new string by concatenating the elements of the array, adding the given separator between each element
+
+
+### Transformation Methods
+
+- `map(transform:)` - returns an array containing the results of mapping the given transformation over the array’s elements
+
+- `filter(predicate:)` - returns a new array containing, in order, the elements of the array that satisfy the given predicate
+
+- `reduce(accumulator:)` - returns the result of combining the elements of the array using the given accumulator
+
+
+### Element Matching Methods
+
+
+- `contains(predicate:)` - returns a boolean value indicating whether the array contains an element that satisfies the given predicate
+
+- `allSatisfy(predicate:)` - returns a boolean value indicating whether every element of an array satisfies a given predicate
+
+- `noneSatisfy(predicate:)` - returns a boolean value indicating whether no elements of an array satisfies a given predicate
+
+
 ### Other Methods
 
-- `count()` - the number of elements in the array
+- `reserveCapacity(n:)` - reserves enough space to store the specified number of elements
+- `toSlice(lowerBound:upperBound:)` - returns a new array containing the elements from the lowerBound to the upperBound (inclusive)
 
-- `indices()` - an array containing the integral indices of an array
-
-- `startIndex()` - the position of the first element in a nonempty array
-
-- `endIndex()` - the array’s “past the end” position—that is, the position one greater than the last valid index
-
-
-
----
 
 ## Dusk Color Theme
 
