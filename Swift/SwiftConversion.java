@@ -1,4 +1,4 @@
-package SwiftFramework.Swift;
+package Swift;
 
 /*
  *
@@ -292,10 +292,10 @@ class SwiftConversion {
     }
 
     // SwiftArray conversion and initializer methods
-    public static SwiftArray SwiftArray(ArrayList arrayList) {
-        return new SwiftArray(arrayList);
+    public static Swift.SwiftArray SwiftArray(ArrayList arrayList) {
+        return new Swift.SwiftArray(arrayList);
     }
-    public static SwiftArray SwiftArray() {
-        return new SwiftArray();
+    public static Swift.SwiftArray SwiftArray() {
+        return new Swift.SwiftArray();
     }
 }

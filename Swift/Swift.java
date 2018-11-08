@@ -1,4 +1,4 @@
-package SwiftFramework.Swift;
+package Swift;
 
 /*
  *
@@ -13,6 +13,8 @@ package SwiftFramework.Swift;
  * file 'LICENSE', which is part of this source code package.
  *
  */
+
+import SwiftFramework.Swift.SwiftMath;
 
 import java.util.*;
 import java.util.stream.Collectors;

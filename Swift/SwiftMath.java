@@ -1,4 +1,4 @@
-package SwiftFramework.Swift;
+package Swift;
 
 /*
  *
@@ -20,7 +20,7 @@ import java.util.*;
 
 
 @SuppressWarnings({"unused", "SingleStatementInBlock", "ConstantExpression", "ControlFlowStatementWithoutBraces", "MethodRefCanBeReplacedWithLambda", "StreamToLoop", "UnnecessaryFullyQualifiedName", "unchecked", "AssertionCanBeIf", "ConditionalExpression", "LoopConditionNotUpdatedInsideLoop", "ConfusingElseBranch", "UnnecessaryLocalVariable", "TooBroadScope", "FrequentlyUsedInheritorInspection", "RedundantExplicitVariableType", "VariableTypeCanBeExplicit", "Convert2MethodRef", "Convert2streamapi", "OptionalGetWithoutIsPresent", "UnusedAssignment"})
-class SwiftMath extends SwiftConversion {
+class SwiftMath extends Swift.SwiftConversion {
 
     public static int lcm(final int x, final int y) {
         var a = x;
