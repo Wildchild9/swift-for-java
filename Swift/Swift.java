@@ -1,4 +1,4 @@
-package Swift;
+package SwiftFramework.Swift;
 
 /*
  *
@@ -14,7 +14,6 @@ package Swift;
  *
  */
 
-import SwiftFramework.Swift.SwiftMath;
 
 import java.util.*;
 import java.util.stream.Collectors;

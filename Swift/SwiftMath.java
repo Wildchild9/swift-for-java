@@ -1,4 +1,4 @@
-package Swift;
+package SwiftFramework.Swift;
 
 /*
  *
@@ -14,13 +14,12 @@ package Swift;
  *
  */
 
-import SwiftFramework.Swift.SwiftArray;
 import java.math.BigDecimal;
 import java.util.*;
 
 
 @SuppressWarnings({"unused", "SingleStatementInBlock", "ConstantExpression", "ControlFlowStatementWithoutBraces", "MethodRefCanBeReplacedWithLambda", "StreamToLoop", "UnnecessaryFullyQualifiedName", "unchecked", "AssertionCanBeIf", "ConditionalExpression", "LoopConditionNotUpdatedInsideLoop", "ConfusingElseBranch", "UnnecessaryLocalVariable", "TooBroadScope", "FrequentlyUsedInheritorInspection", "RedundantExplicitVariableType", "VariableTypeCanBeExplicit", "Convert2MethodRef", "Convert2streamapi", "OptionalGetWithoutIsPresent", "UnusedAssignment"})
-class SwiftMath extends Swift.SwiftConversion {
+class SwiftMath extends SwiftConversion {
 
     public static int lcm(final int x, final int y) {
         var a = x;
@@ -295,7 +294,6 @@ class SwiftMath extends Swift.SwiftConversion {
         return collection.stream().mapToDouble(i -> i.doubleValue()).average().getAsDouble();
         //return collection.stream().reduce((x, y) -> add(x, y)).get().doubleValue() / (double) collection.size();
     }
-
 
     @SafeVarargs
     public static <T> T mode(T...          elements) {
