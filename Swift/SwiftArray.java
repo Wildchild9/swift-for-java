@@ -1,4 +1,4 @@
-package SwiftFramework.Swift;
+package Swift;
 
 /*
  *
@@ -6,7 +6,7 @@ package SwiftFramework.Swift;
  * ComputerScience
  *
  *
- * Last modified on 06/11/18 12:46 AM.
+ * Last modified on 09/11/18 1:27 PM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
@@ -555,9 +555,12 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     public final SwiftArray<Element> sorted() {
         return new SwiftArray<Element>(this.stream().sorted().collect(Collectors.toList()));
     }
-    public final void sort() {
+
+    public final void sort(){
+        var sortedArr = this.stream().sorted().collect(Collectors.toList());
         this.clear();
-        this.addAll(this.stream().sorted().collect(Collectors.toList()));
+        this.addAll(sortedArr);
+        sortedArr = null;
     }
 
     // High-order sorting by comparator

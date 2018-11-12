@@ -1,4 +1,4 @@
-package SwiftFramework.Swift;
+package Swift;
 
 /*
  *
@@ -6,7 +6,7 @@ package SwiftFramework.Swift;
  * ComputerScience
  *
  *
- * Last modified on 06/11/18 12:46 AM.
+ * Last modified on 09/11/18 1:27 PM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
@@ -322,9 +322,9 @@ class SwiftMath extends SwiftConversion {
     }
 
     @SafeVarargs
-    public static <T> SwiftArray<T> modes(T...        collection) {
+    public static <T> SwiftArray<T> modes(T...          elements)   {
         var dict = new HashMap<T, Integer>();
-        for (var n : collection) {
+        for (var n : elements) {
             if (dict.containsKey(n)) {
                 dict.replace(n, dict.get(n) + 1);
             } else {
@@ -344,23 +344,23 @@ class SwiftMath extends SwiftConversion {
         }
         return modes;
     }
-    public static <T> SwiftArray<T> modes(Collection<T> elements) {
+    public static <T> SwiftArray<T> modes(Collection<T> collection) {
         var dict = new HashMap<T, Integer>();
-        for (var n : elements) {
+        for (var n : collection) {
             if (dict.containsKey(n)) {
                 dict.replace(n, dict.get(n) + 1);
             } else {
                 dict.put(n, 1);
             }
         }
-        var maxCount = 0;
+        var maxOccurencesCount = 0;
         var modes = SwiftArray();
         for (var pair : dict.entrySet()) {
-            if (pair.getValue() > maxCount) {
+            if (pair.getValue() > maxOccurencesCount) {
                 modes.clear();
                 modes.append(pair.getKey());
-                maxCount = pair.getValue();
-            } else if (pair.getValue() == maxCount) {
+                maxOccurencesCount = pair.getValue();
+            } else if (pair.getValue() == maxOccurencesCount) {
                 modes.append(pair.getKey());
             }
         }

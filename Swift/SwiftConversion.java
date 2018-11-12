@@ -1,4 +1,4 @@
-package SwiftFramework.Swift;
+package Swift;
 
 /*
  *
@@ -6,7 +6,7 @@ package SwiftFramework.Swift;
  * ComputerScience
  *
  *
- * Last modified on 06/11/18 12:46 AM.
+ * Last modified on 09/11/18 1:28 PM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
