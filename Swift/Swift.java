@@ -275,58 +275,58 @@ public class Swift extends SwiftBase {
         } // +, -
 
         // Number +, -
-        public final boolean hasNextPositiveNumber() {
+        private final boolean hasNextPositiveNumber() {
             return !hasNextWithPrefix("-") && hasNextNumber();
         } // +
-        public final boolean hasNextNegativeNumber() {
+        private final boolean hasNextNegativeNumber() {
             return hasNextWithPrefix("-") && hasNextNumber();
         } // -
 
         // Integer +, -
-        public final boolean hasNextPositiveInt() {
+        private final boolean hasNextPositiveInt() {
             return this.sc.hasNextInt() && !hasNextWithPrefix("-");
         } // +
-        public final boolean hasNextNegativeInt() {
+        private final boolean hasNextNegativeInt() {
             return this.sc.hasNextInt() && hasNextWithPrefix("-");
         } // -
 
         // Double +, -
-        public final boolean hasNextPositiveDouble() {
+        private final boolean hasNextPositiveDouble() {
             return this.sc.hasNextDouble() && !hasNextWithPrefix("-");
         } // +
-        public final boolean hasNextNegativeDouble() {
+        private final boolean hasNextNegativeDouble() {
             return this.sc.hasNextDouble() && hasNextWithPrefix("-");
         } // -
 
         // Float
-        public final boolean hasNextPositiveFloat() {
+        private final boolean hasNextPositiveFloat() {
             return this.sc.hasNextFloat() && !hasNextWithPrefix("-");
         } // +
-        public final boolean hasNextNegativeFloat() {
+        private final boolean hasNextNegativeFloat() {
             return this.sc.hasNextFloat() && hasNextWithPrefix("-");
         } // -
 
         // Long
-        public final boolean hasNextPositiveLong() {
+        private final boolean hasNextPositiveLong() {
             return this.sc.hasNextLong() && !hasNextWithPrefix("-");
         } // +
-        public final boolean hasNextNegativeLong() {
+        private final boolean hasNextNegativeLong() {
             return this.sc.hasNextLong() && hasNextWithPrefix("-");
         } // -
 
         // Short
-        public final boolean hasNextPositiveShort() {
+        private final boolean hasNextPositiveShort() {
             return this.sc.hasNextShort() && !hasNextWithPrefix("-");
         } // +
-        public final boolean hasNextNegativeShort() {
+        private final boolean hasNextNegativeShort() {
             return this.sc.hasNextShort() && hasNextWithPrefix("-");
         } // -
 
         // Byte
-        public final boolean hasNextPositiveByte() {
+        private final boolean hasNextPositiveByte() {
             return this.sc.hasNextByte() && !hasNextWithPrefix("-");
         } // +
-        public final boolean hasNextNegativeByte() {
+        private final boolean hasNextNegativeByte() {
             return this.sc.hasNextByte() && hasNextWithPrefix("-");
         } // -
 
