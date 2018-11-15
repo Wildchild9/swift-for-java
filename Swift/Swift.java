@@ -405,13 +405,6 @@ public class Swift extends SwiftBase {
                         .collect(Collectors.toList());
     }
 
-    // Swap
-    public static final <T> void swap(T j, T k) {
-        var i = j;
-        j = k;
-        k = i;
-    }
-
     // Line
     private static String line(int length) {
         final var s = "—";
