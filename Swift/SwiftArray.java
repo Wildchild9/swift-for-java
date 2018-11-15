@@ -6,15 +6,13 @@ package Swift;
  * ComputerScience
  *
  *
- * Last modified on 09/11/18 1:27 PM.
+ * Last modified on 15/11/18 9:20 AM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  *
  */
-
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -748,15 +746,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     }
 
     // Indices
-    public final SwiftArray<Integer> indices() {
-
-        SwiftArray<Integer> indices = new SwiftArray<Integer>();
-        if (size() > 0) {
-            for (Integer i = 0; i < size(); i++) {
-                indices.add(i);
-            }
-        }
-        return indices;
+    public final SwiftRange indices() {
+        return new SwiftRange(0, this.size() - 1);
     }
 
     // Start index
@@ -780,8 +771,8 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 
     // Enumerated
     public final <A, B> List<Pair<Integer, Element>> enumerated() {
-        return IntStream.range(0, Math.min(this.indices().size(), this.size()))
-                        .mapToObj(i -> Pair.of(this.indices().get(i), this.get(i)))
+        return IntStream.range(0, Math.min(this.indices().count(), this.size()))
+                        .mapToObj(i -> Pair.of(this.indices().count(), this.get(i)))
                         .collect(Collectors.toList());
     }
 

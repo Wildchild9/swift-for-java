@@ -6,16 +6,13 @@ package Swift;
  * ComputerScience
  *
  *
- * Last modified on 09/11/18 1:09 PM.
+ * Last modified on 15/11/18 9:21 AM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  *
  */
-
-
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -59,16 +56,16 @@ public class Swift extends SwiftBase {
         System.out.println(item);
     }
     public static final void print(float item) {
-        System.out.println(item);
+    System.out.println(item);
     }
     public static final void print(char... item) {
-        System.out.println(item);
+    System.out.println(item);
     }
     public static final void print(double item) {
-        System.out.println(item);
+    System.out.println(item);
     }
     public static final void print(String item) {
-        System.out.println(item);
+    System.out.println(item);
     }
     public static final void print(boolean item) {
         System.out.println(item);
@@ -80,13 +77,17 @@ public class Swift extends SwiftBase {
 //  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 //  Generic Methods
     public static final <T> void print(T         item ) {
-        System.out.println(item);
+            System.out.println(item);
     }
     public static final     void print(Object... items) {
-        print.withSeparator(" ", items);
-    }
-    public static final <T extends Collection> void print(Collection collection, String separator) {
+                    print.withSeparator(" ", items);
+                }
+    public static final void print(Collection collection, String separator) {
         final String joinedCollection = collection.stream().map(i -> String.valueOf(i)).collect(Collectors.joining(separator)).toString();
+        System.out.println(joinedCollection);
+    }
+    public static final void print(Collection collection, char   separator) {
+        final String joinedCollection = collection.stream().map(i -> String.valueOf(i)).collect(Collectors.joining(String.valueOf(separator))).toString();
         System.out.println(joinedCollection);
     }
 
@@ -113,6 +114,32 @@ public class Swift extends SwiftBase {
         public static final <T> void withTerminator(char   terminator, T item) {
             print.withTerminator(String.valueOf(terminator), item);
         }
+        public static final <T> void withTerminator(String terminator, T... items) {
+            final String joinedItems = Arrays.stream(items).map(i -> String.valueOf(i)).collect(Collectors.joining(" "));
+            System.out.print(items + terminator);
+        }
+        public static final <T> void withTerminator(char   terminator, T... items) {
+        final String joinedItems = Arrays.stream(items).map(i -> String.valueOf(i)).collect(Collectors.joining(" "));
+            System.out.print(items + String.valueOf(terminator));
+        }
+
+
+    public static final void withOverheadLine(Object... items) {
+            final String joinedItems = Arrays.stream(items).map(i -> String.valueOf(i)).collect(Collectors.joining(" "));
+
+            print(IntStream.range(0, joinedItems.length()).mapToObj(i -> "—").collect(Collectors.joining()));
+            print(joinedItems);
+        }
+        public static final <T> void withOverheadLine(T item) {
+            final String itemStr = item.toString();
+            print(IntStream.range(0, itemStr.length()).mapToObj(i -> "—").collect(Collectors.joining()));
+            print(item);
+        }
+
+        public static final <T> void line(int ofLength) {
+            print(IntStream.range(0, Math.abs(ofLength)).mapToObj(i -> "—").collect(Collectors.joining()));
+        }
+
     }
 
 //  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
@@ -376,6 +403,21 @@ public class Swift extends SwiftBase {
         return IntStream.range(0, Math.min(as.size(), bs.size()))
                         .mapToObj(i -> Pair.of(as.get(i), bs.get(i)))
                         .collect(Collectors.toList());
+    }
+
+    // Swap
+    public static final <T> void swap(T j, T k) {
+        var i = j;
+        j = k;
+        k = i;
+    }
+
+    // Line
+    private static String line(int length) {
+        final var s = "—";
+        final var n = Math.abs(length);
+
+        return IntStream.range(0, n).mapToObj(i -> s).collect(Collectors.joining());
     }
 
 
