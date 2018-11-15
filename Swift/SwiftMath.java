@@ -1094,13 +1094,13 @@ class SwiftMath extends SwiftConversion {
     public static int round(float a) {
         int intBits = Float.floatToRawIntBits(a);
         int biasedExp = (intBits & FloatConsts.EXP_BIT_MASK)
-                        >> (FloatConsts.SIGNIFICAND_WIDTH - 1);
-        int shift = (FloatConsts.SIGNIFICAND_WIDTH - 2
-                     + FloatConsts.EXP_BIAS) - biasedExp;
+                        >> FloatConsts.SIGNIFICAND_WIDTH - 1;
+        int shift = FloatConsts.SIGNIFICAND_WIDTH - 2
+                     + FloatConsts.EXP_BIAS - biasedExp;
         if ((shift & -32) == 0) { // shift >= 0 && shift < 32
             // a is a finite number such that pow(2,-32) <= ulp(a) < 1
-            int r = ((intBits & FloatConsts.SIGNIF_BIT_MASK)
-                     | (FloatConsts.SIGNIF_BIT_MASK + 1));
+            int r = intBits & FloatConsts.SIGNIF_BIT_MASK
+                    | FloatConsts.SIGNIF_BIT_MASK + 1;
             if (intBits < 0) {
                 r = -r;
             }
@@ -1110,7 +1110,7 @@ class SwiftMath extends SwiftConversion {
             // (r >> shift) evaluates to floor(a * 2)
             // ((r >> shift) + 1) evaluates to floor((a + 1/2) * 2)
             // (((r >> shift) + 1) >> 1) evaluates to floor(a + 1/2)
-            return ((r >> shift) + 1) >> 1;
+            return (r >> shift) + 1 >> 1;
         } else {
             // a is either
             // - a finite number with abs(a) < exp(2,FloatConsts.SIGNIFICAND_WIDTH-32) < 1/2
@@ -1143,13 +1143,13 @@ class SwiftMath extends SwiftConversion {
     public static long round(double a) {
         long longBits = Double.doubleToRawLongBits(a);
         long biasedExp = (longBits & DoubleConsts.EXP_BIT_MASK)
-                         >> (DoubleConsts.SIGNIFICAND_WIDTH - 1);
+                         >> DoubleConsts.SIGNIFICAND_WIDTH - 1;
         long shift = (DoubleConsts.SIGNIFICAND_WIDTH - 2
                       + DoubleConsts.EXP_BIAS) - biasedExp;
         if ((shift & -64) == 0) { // shift >= 0 && shift < 64
             // a is a finite number such that pow(2,-64) <= ulp(a) < 1
-            long r = ((longBits & DoubleConsts.SIGNIF_BIT_MASK)
-                      | (DoubleConsts.SIGNIF_BIT_MASK + 1));
+            long r = longBits & DoubleConsts.SIGNIF_BIT_MASK
+                     | DoubleConsts.SIGNIF_BIT_MASK + 1;
             if (longBits < 0) {
                 r = -r;
             }
@@ -1159,7 +1159,7 @@ class SwiftMath extends SwiftConversion {
             // (r >> shift) evaluates to floor(a * 2)
             // ((r >> shift) + 1) evaluates to floor((a + 1/2) * 2)
             // (((r >> shift) + 1) >> 1) evaluates to floor(a + 1/2)
-            return ((r >> shift) + 1) >> 1;
+            return (r >> shift) + 1 >> 1;
         } else {
             // a is either
             // - a finite number with abs(a) < exp(2,DoubleConsts.SIGNIFICAND_WIDTH-64) < 1/2
@@ -1325,12 +1325,7 @@ class SwiftMath extends SwiftConversion {
         long r = x * y;
         long ax = java.lang.Math.abs(x);
         long ay = java.lang.Math.abs(y);
-        if (((ax | ay) >>> 31 != 0)) {
-            // Some bits greater than 2^31 that might cause overflow
-            // Check the result using the divide operator
-            // and check for the special case of Long.MIN_VALUE * -1
-            assert ((y == 0) || (r / y == x)) && (x != Long.MIN_VALUE || y != -1) : "long overflow";
-        }
+            assert (ax | ay) >>> 31 == 0 || (y == 0 || r / y == x) && (x != Long.MIN_VALUE || y != -1) : "long overflow";
         return r;
     }
 
@@ -1483,7 +1478,7 @@ class SwiftMath extends SwiftConversion {
             long B = x2 * y2;
             long C = (x1 + x2) * (y1 + y2);
             long K = C - A - B;
-            return (((B >>> 32) + K) >>> 32) + A;
+            return ((B >>> 32) + K >>> 32) + A;
         }
     }
 
@@ -1524,7 +1519,7 @@ class SwiftMath extends SwiftConversion {
     public static int floorDiv(int x, int y) {
         int r = x / y;
         // if the signs are different and modulo not zero, round down
-        if ((x ^ y) < 0 && (r * y != x)) {
+        if ((x ^ y) < 0 && r * y != x) {
             r--;
         }
         return r;
@@ -1587,7 +1582,7 @@ class SwiftMath extends SwiftConversion {
     public static long floorDiv(long x, long y) {
         long r = x / y;
         // if the signs are different and modulo not zero, round down
-        if ((x ^ y) < 0 && (r * y != x)) {
+        if ((x ^ y) < 0 && r * y != x) {
             r--;
         }
         return r;
@@ -1708,7 +1703,7 @@ class SwiftMath extends SwiftConversion {
      * @return  the absolute value of the argument.
      */
     public static int abs(int a) {
-        return (a < 0) ? -a : a;
+        return a < 0 ? -a : a;
     }
 
     /**
@@ -1725,7 +1720,7 @@ class SwiftMath extends SwiftConversion {
      * @return  the absolute value of the argument.
      */
     public static long abs(long a) {
-        return (a < 0) ? -a : a;
+        return a < 0 ? -a : a;
     }
 
     /**
@@ -1749,7 +1744,7 @@ class SwiftMath extends SwiftConversion {
      * @return  the absolute value of the argument.
      */
     public static float abs(float a) {
-        return (a <= 0.0F) ? 0.0F - a : a;
+        return a <= 0.0F ? 0.0F - a : a;
     }
 
     /**
@@ -1773,7 +1768,7 @@ class SwiftMath extends SwiftConversion {
      * @return  the absolute value of the argument.
      */
         public static double abs(double a) {
-        return (a <= 0.0D) ? 0.0D - a : a;
+        return a <= 0.0D ? 0.0D - a : a;
     }
 
     /**
@@ -1787,7 +1782,7 @@ class SwiftMath extends SwiftConversion {
      * @return  the larger of {@code a} and {@code b}.
      */
         public static int max(int a, int b) {
-        return (a >= b) ? a : b;
+        return a >= b ? a : b;
     }
 
     /**
@@ -1801,7 +1796,7 @@ class SwiftMath extends SwiftConversion {
      * @return  the larger of {@code a} and {@code b}.
      */
     public static long max(long a, long b) {
-        return (a >= b) ? a : b;
+        return a >= b ? a : b;
     }
 
     // Use raw bit-wise conversions on guaranteed non-NaN arguments.
@@ -1825,14 +1820,12 @@ class SwiftMath extends SwiftConversion {
     public static float max(float a, float b) {
         if (a != a)
             return a;   // a is NaN
-        if ((a == 0.0f) &&
-            (b == 0.0f) &&
-            (Float.floatToRawIntBits(a) == negativeZeroFloatBits)) {
+        if (a == 0.0f && b == 0.0f && Float.floatToRawIntBits(a) == negativeZeroFloatBits) {
             // Raw conversion ok since NaN can't map to -0.0.
             return b;
         }
         //noinspection ConditionalExpression
-        return (a >= b) ? a : b;
+        return a >= b ? a : b;
     }
 
     /**
@@ -1852,13 +1845,11 @@ class SwiftMath extends SwiftConversion {
     public static double max(double a, double b) {
         if (a != a)
             return a;   // a is NaN
-        if ((a == 0.0d) &&
-            (b == 0.0d) &&
-            (Double.doubleToRawLongBits(a) == negativeZeroDoubleBits)) {
+        if (a == 0.0d && b == 0.0d && Double.doubleToRawLongBits(a) == negativeZeroDoubleBits) {
             // Raw conversion ok since NaN can't map to -0.0.
             return b;
         }
-        return (a >= b) ? a : b;
+        return a >= b ? a : b;
     }
 
     /**
@@ -1872,7 +1863,7 @@ class SwiftMath extends SwiftConversion {
      * @return  the smaller of {@code a} and {@code b}.
      */
         public static int min(int a, int b) {
-        return (a <= b) ? a : b;
+        return a <= b ? a : b;
     }
 
     /**
@@ -1886,7 +1877,7 @@ class SwiftMath extends SwiftConversion {
      * @return  the smaller of {@code a} and {@code b}.
      */
     public static long min(long a, long b) {
-        return (a <= b) ? a : b;
+        return a <= b ? a : b;
     }
 
     /**
@@ -1906,13 +1897,11 @@ class SwiftMath extends SwiftConversion {
     public static float min(float a, float b) {
         if (a != a)
             return a;   // a is NaN
-        if ((a == 0.0f) &&
-            (b == 0.0f) &&
-            (Float.floatToRawIntBits(b) == negativeZeroFloatBits)) {
+        if (a == 0.0f && b == 0.0f && Float.floatToRawIntBits(b) == negativeZeroFloatBits) {
             // Raw conversion ok since NaN can't map to -0.0.
             return b;
         }
-        return (a <= b) ? a : b;
+        return a <= b ? a : b;
     }
 
     /**
@@ -1932,13 +1921,11 @@ class SwiftMath extends SwiftConversion {
     public static double min(double a, double b) {
         if (a != a)
             return a;   // a is NaN
-        if ((a == 0.0d) &&
-            (b == 0.0d) &&
-            (Double.doubleToRawLongBits(b) == negativeZeroDoubleBits)) {
+        if (a == 0.0d && b == 0.0d && Double.doubleToRawLongBits(b) == negativeZeroDoubleBits) {
             // Raw conversion ok since NaN can't map to -0.0.
             return b;
         }
-        return (a <= b) ? a : b;
+        return a <= b ? a : b;
     }
 
     /**
@@ -2032,7 +2019,7 @@ class SwiftMath extends SwiftConversion {
                     return result;
                 }
             } else { // All inputs finite
-                BigDecimal product = (new BigDecimal(a)).multiply(new BigDecimal(b));
+                BigDecimal product = new BigDecimal(a).multiply(new BigDecimal(b));
                 if (c == 0.0) { // Positive or negative zero
                     // If the product is an exact zero, use a
                     // floating-point expression to compute the sign
@@ -2132,7 +2119,7 @@ class SwiftMath extends SwiftConversion {
          * to a float variable to avoid returning a value in the float
          * extended value set.
          */
-        float result = (float)(((double) a * (double) b ) + (double) c);
+        float result = (float)((double) a * (double) b + (double) c);
         return result;
     }
 
@@ -2181,8 +2168,7 @@ class SwiftMath extends SwiftConversion {
                     // return a subnormal result; left shift integer
                     // representation of Double.MIN_VALUE appropriate
                     // number of positions
-                    return Double.longBitsToDouble(1L <<
-                                                   (exp - (Double.MIN_EXPONENT - (DoubleConsts.SIGNIFICAND_WIDTH-1)) ));
+                    return Double.longBitsToDouble(1L << exp - (Double.MIN_EXPONENT - (DoubleConsts.SIGNIFICAND_WIDTH-1)));
                 }
         }
     }
@@ -2234,8 +2220,7 @@ class SwiftMath extends SwiftConversion {
                     // return a subnormal result; left shift integer
                     // representation of FloatConsts.MIN_VALUE appropriate
                     // number of positions
-                    return Float.intBitsToFloat(1 <<
-                                                (exp - (Float.MIN_EXPONENT - (FloatConsts.SIGNIFICAND_WIDTH-1)) ));
+                    return Float.intBitsToFloat(1 << exp - (Float.MIN_EXPONENT - (FloatConsts.SIGNIFICAND_WIDTH-1)));
                 }
         }
     }
@@ -2258,7 +2243,7 @@ class SwiftMath extends SwiftConversion {
      * @since 1.5
      */
     public static double signum(double d) {
-        return (d == 0.0 || Double.isNaN(d))?d:copySign(1.0, d);
+        return d == 0.0 || Double.isNaN(d) ?d:copySign(1.0, d);
     }
 
     /**
@@ -2279,7 +2264,7 @@ class SwiftMath extends SwiftConversion {
      * @since 1.5
      */
     public static float signum(float f) {
-        return (f == 0.0f || Float.isNaN(f))?f:copySign(1.0f, f);
+        return f == 0.0f || Float.isNaN(f) ?f:copySign(1.0f, f);
     }
 
     /**
@@ -2499,11 +2484,9 @@ class SwiftMath extends SwiftConversion {
      * @since 1.6
      */
     public static double copySign(double magnitude, double sign) {
-        return Double.longBitsToDouble((Double.doubleToRawLongBits(sign) &
-                                        (DoubleConsts.SIGN_BIT_MASK)) |
-                                       (Double.doubleToRawLongBits(magnitude) &
-                                        (DoubleConsts.EXP_BIT_MASK |
-                                         DoubleConsts.SIGNIF_BIT_MASK)));
+        return Double.longBitsToDouble(Double.doubleToRawLongBits(sign) & DoubleConsts.SIGN_BIT_MASK | Double.doubleToRawLongBits(magnitude) &
+                                                                                                       (DoubleConsts.EXP_BIT_MASK |
+                                          DoubleConsts.SIGNIF_BIT_MASK));
     }
 
     /**
@@ -2522,11 +2505,9 @@ class SwiftMath extends SwiftConversion {
      * @since 1.6
      */
     public static float copySign(float magnitude, float sign) {
-        return Float.intBitsToFloat((Float.floatToRawIntBits(sign) &
-                                     (FloatConsts.SIGN_BIT_MASK)) |
-                                    (Float.floatToRawIntBits(magnitude) &
-                                     (FloatConsts.EXP_BIT_MASK |
-                                      FloatConsts.SIGNIF_BIT_MASK)));
+        return Float.intBitsToFloat(Float.floatToRawIntBits(sign) & FloatConsts.SIGN_BIT_MASK | Float.floatToRawIntBits(magnitude) &
+                                                                                                (FloatConsts.EXP_BIT_MASK |
+                                       FloatConsts.SIGNIF_BIT_MASK));
     }
 
     /**
@@ -2549,8 +2530,7 @@ class SwiftMath extends SwiftConversion {
          * to the right and then subtract out float's bias adjust to
          * get true exponent value
          */
-        return ((Float.floatToRawIntBits(f) & FloatConsts.EXP_BIT_MASK) >>
-                (FloatConsts.SIGNIFICAND_WIDTH - 1)) - FloatConsts.EXP_BIAS;
+        return ((Float.floatToRawIntBits(f) & FloatConsts.EXP_BIT_MASK) >> FloatConsts.SIGNIFICAND_WIDTH - 1) - FloatConsts.EXP_BIAS;
     }
 
     /**
@@ -2573,8 +2553,7 @@ class SwiftMath extends SwiftConversion {
          * to the right and then subtract out double's bias adjust to
          * get true exponent value.
          */
-        return (int)(((Double.doubleToRawLongBits(d) & DoubleConsts.EXP_BIT_MASK) >>
-                      (DoubleConsts.SIGNIFICAND_WIDTH - 1)) - DoubleConsts.EXP_BIAS);
+        return (int)(((Double.doubleToRawLongBits(d) & DoubleConsts.EXP_BIT_MASK) >> DoubleConsts.SIGNIFICAND_WIDTH - 1) - DoubleConsts.EXP_BIAS);
     }
 
     /**
@@ -2646,7 +2625,7 @@ class SwiftMath extends SwiftConversion {
         if (start > direction) { // descending
             if (start != 0.0d) {
                 final long transducer = Double.doubleToRawLongBits(start);
-                return Double.longBitsToDouble(transducer + ((transducer > 0L) ? -1L : 1L));
+                return Double.longBitsToDouble(transducer + (transducer > 0L ? -1L : 1L));
             } else { // start == 0.0d && direction < 0.0d
                 return -Double.MIN_VALUE;
             }
@@ -2654,7 +2633,7 @@ class SwiftMath extends SwiftConversion {
             // Add +0.0 to get rid of a -0.0 (+0.0 + -0.0 => +0.0)
             // then bitwise convert start to integer.
             final long transducer = Double.doubleToRawLongBits(start + 0.0d);
-            return Double.longBitsToDouble(transducer + ((transducer >= 0L) ? 1L : -1L));
+            return Double.longBitsToDouble(transducer + (transducer >= 0L ? 1L : -1L));
         } else if (start == direction) {
             return direction;
         } else { // isNaN(start) || isNaN(direction)
@@ -2730,7 +2709,7 @@ class SwiftMath extends SwiftConversion {
         if (start > direction) { // descending
             if (start != 0.0f) {
                 final int transducer = Float.floatToRawIntBits(start);
-                return Float.intBitsToFloat(transducer + ((transducer > 0) ? -1 : 1));
+                return Float.intBitsToFloat(transducer + (transducer > 0 ? -1 : 1));
             } else { // start == 0.0f && direction < 0.0f
                 return -Float.MIN_VALUE;
             }
@@ -2738,7 +2717,7 @@ class SwiftMath extends SwiftConversion {
             // Add +0.0 to get rid of a -0.0 (+0.0 + -0.0 => +0.0)
             // then bitwise convert start to integer.
             final int transducer = Float.floatToRawIntBits(start + 0.0f);
-            return Float.intBitsToFloat(transducer + ((transducer >= 0) ? 1 : -1));
+            return Float.intBitsToFloat(transducer + (transducer >= 0 ? 1 : -1));
         } else if (start == direction) {
             return (float)direction;
         } else { // isNaN(start) || isNaN(direction)
@@ -2776,7 +2755,7 @@ class SwiftMath extends SwiftConversion {
         if (d < Double.POSITIVE_INFINITY) {
             // Add +0.0 to get rid of a -0.0 (+0.0 + -0.0 => +0.0).
             final long transducer = Double.doubleToRawLongBits(d + 0.0D);
-            return Double.longBitsToDouble(transducer + ((transducer >= 0L) ? 1L : -1L));
+            return Double.longBitsToDouble(transducer + (transducer >= 0L ? 1L : -1L));
         } else { // d is NaN or +Infinity
             return d;
         }
@@ -2812,7 +2791,7 @@ class SwiftMath extends SwiftConversion {
         if (f < Float.POSITIVE_INFINITY) {
             // Add +0.0 to get rid of a -0.0 (+0.0 + -0.0 => +0.0).
             final int transducer = Float.floatToRawIntBits(f + 0.0F);
-            return Float.intBitsToFloat(transducer + ((transducer >= 0) ? 1 : -1));
+            return Float.intBitsToFloat(transducer + (transducer >= 0 ? 1 : -1));
         } else { // f is NaN or +Infinity
             return f;
         }
@@ -2851,7 +2830,7 @@ class SwiftMath extends SwiftConversion {
                 return -Double.MIN_VALUE;
             else
                 return Double.longBitsToDouble(Double.doubleToRawLongBits(d) +
-                                               ((d > 0.0d)?-1L:+1L));
+                                               (d > 0.0d ?-1L:+1L));
         }
     }
 
@@ -2888,7 +2867,7 @@ class SwiftMath extends SwiftConversion {
                 return -Float.MIN_VALUE;
             else
                 return Float.intBitsToFloat(Float.floatToRawIntBits(f) +
-                                            ((f > 0.0f)?-1:+1));
+                                            (f > 0.0f ?-1:+1));
         }
     }
 
@@ -2986,8 +2965,8 @@ class SwiftMath extends SwiftConversion {
 
         // Calculate (scaleFactor % +/-512), 512 = 2^9, using
         // technique from "Hacker's Delight" section 10-2.
-        int t = (scaleFactor >> 9-1) >>> 32 - 9;
-        exp_adjust = ((scaleFactor + t) & (512 -1)) - t;
+        int t = scaleFactor >> 9-1 >>> 32 - 9;
+        exp_adjust = (scaleFactor + t & 512 - 1) - t;
 
         d *= powerOfTwoD(exp_adjust);
         scaleFactor -= exp_adjust;
@@ -3060,9 +3039,8 @@ class SwiftMath extends SwiftConversion {
      * Returns a floating-point power of two in the normal range.
      */
     static double powerOfTwoD(int n) {
-        assert(n >= Double.MIN_EXPONENT && n <= Double.MAX_EXPONENT);
-        return Double.longBitsToDouble((((long)n + (long)DoubleConsts.EXP_BIAS) <<
-                                        (DoubleConsts.SIGNIFICAND_WIDTH-1))
+        assert n >= Double.MIN_EXPONENT && n <= Double.MAX_EXPONENT;
+        return Double.longBitsToDouble((long)n + (long)DoubleConsts.EXP_BIAS << DoubleConsts.SIGNIFICAND_WIDTH - 1
                                        & DoubleConsts.EXP_BIT_MASK);
     }
 
@@ -3070,9 +3048,8 @@ class SwiftMath extends SwiftConversion {
      * Returns a floating-point power of two in the normal range.
      */
     static float powerOfTwoF(int n) {
-        assert(n >= Float.MIN_EXPONENT && n <= Float.MAX_EXPONENT);
-        return Float.intBitsToFloat(((n + FloatConsts.EXP_BIAS) <<
-                                     (FloatConsts.SIGNIFICAND_WIDTH-1))
+        assert n >= Float.MIN_EXPONENT && n <= Float.MAX_EXPONENT;
+        return Float.intBitsToFloat(n + FloatConsts.EXP_BIAS << FloatConsts.SIGNIFICAND_WIDTH - 1
                                     & FloatConsts.EXP_BIT_MASK);
     }
 

@@ -15,6 +15,8 @@ package Swift;
  */
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 
 class SwiftConversion {
@@ -292,10 +294,42 @@ class SwiftConversion {
     }
 
     // SwiftArray conversion and initializer methods
-    public static SwiftArray SwiftArray(ArrayList arrayList) {
-        return new SwiftArray(arrayList);
+    public static <T> SwiftArray<T>   SwiftArray(Collection<T> collection) {
+        return new SwiftArray<T>(collection);
     }
+    public static <T> SwiftArray<T>   SwiftArray(ArrayList<T>  arrayList)  {
+        return new SwiftArray<T>(arrayList);
+    }
+    public static <T> SwiftArray<T>   SwiftArray(Iterable<T>   elements)   {
+        return new SwiftArray<T>(elements);
+    }
+    public static <T> SwiftArray<T>   SwiftArray(List<T>       list)       {
+        return new SwiftArray<T>(list);
+    }
+    public static <T> SwiftArray<T>   SwiftArray(T...          array)      {
+        return new SwiftArray<T>(array);
+    }
+    public static SwiftArray<Integer> SwiftArray(SwiftRange    range)      {
+        return range.toSwiftArray();
+    }
+
     public static SwiftArray SwiftArray() {
         return new SwiftArray();
     }
+
+    // SwiftRange conversion and initializer methods
+    public static SwiftRange SwiftRange(int     lowerBound, int     upperBound) {
+        return new SwiftRange(lowerBound, upperBound);
+    }
+    public static SwiftRange SwiftRange(Integer lowerBound, Integer upperBound) {
+        return new SwiftRange(lowerBound, upperBound);
+    }
+    public static SwiftRange SwiftRange(Integer lowerBound, int     upperBound) {
+        return new SwiftRange(lowerBound, upperBound);
+    }
+    public static SwiftRange SwiftRange(int     lowerBound, Integer upperBound) {
+        return new SwiftRange(lowerBound, upperBound);
+    }
+
+
 }

@@ -14,10 +14,17 @@ package Swift;
  *
  */
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.*;
-import java.util.function.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 
 @SuppressWarnings({"override", "unused"})
 public class SwiftArray<Element> extends ArrayList<Element> {
@@ -81,7 +88,10 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         assert count >= 0 : "Cannot use a negative value as the count of a SwiftArray";
         assert lowerBound <= upperBound : "Can't form Range with upperBound < lowerBound";
         final var r = new Random();
-        return new SwiftArray<Integer>(r.ints(count, lowerBound, upperBound).boxed().collect(Collectors.toList()));
+        var swiftArray = new SwiftArray<Integer>();
+        swiftArray.reserveCapacity(count);
+        swiftArray.addAll(r.ints(count, lowerBound, upperBound).boxed().collect(Collectors.toList()));
+        return swiftArray;
 
     }
     public final static SwiftArray<Double>  repeatingRandom(double lowerBound, double upperBound, long count) {
@@ -674,10 +684,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 
     // Checks if a given index is valid in the context the SwiftArray
     public final boolean hasIndex(int idx) {
-        if (!this.isEmpty() && idx >= 0 && idx < size()) {
-            return true;
-        }
-        return false;
+        return !this.isEmpty() && idx >= 0 && idx < size();
     }
 
     // Return slice of array between a particular index
@@ -770,6 +777,15 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         this.set(i, y);
         this.set(j, x);
     }
+
+    // Enumerated
+    public final <A, B> List<Pair<Integer, Element>> enumerated() {
+        return IntStream.range(0, Math.min(this.indices().size(), this.size()))
+                        .mapToObj(i -> Pair.of(this.indices().get(i), this.get(i)))
+                        .collect(Collectors.toList());
+    }
+
+
 
 ////▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██████████████████████████████████████████████████████████████████████████████████████
 } //▌ END OF CLASS  ██████████████████████████████████████████████████████████████████████████████████████

@@ -15,8 +15,12 @@ package Swift;
  */
 
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 
 // Current top class
 class SwiftBase extends SwiftMath { }
@@ -271,58 +275,58 @@ public class Swift extends SwiftBase {
         } // +, -
 
         // Number +, -
-        private final boolean hasNextPositiveNumber() {
+        public final boolean hasNextPositiveNumber() {
             return !hasNextWithPrefix("-") && hasNextNumber();
         } // +
-        private final boolean hasNextNegativeNumber() {
+        public final boolean hasNextNegativeNumber() {
             return hasNextWithPrefix("-") && hasNextNumber();
         } // -
 
         // Integer +, -
-        private final boolean hasNextPositiveInt() {
+        public final boolean hasNextPositiveInt() {
             return this.sc.hasNextInt() && !hasNextWithPrefix("-");
         } // +
-        private final boolean hasNextNegativeInt() {
+        public final boolean hasNextNegativeInt() {
             return this.sc.hasNextInt() && hasNextWithPrefix("-");
         } // -
 
         // Double +, -
-        private final boolean hasNextPositiveDouble() {
+        public final boolean hasNextPositiveDouble() {
             return this.sc.hasNextDouble() && !hasNextWithPrefix("-");
         } // +
-        private final boolean hasNextNegativeDouble() {
+        public final boolean hasNextNegativeDouble() {
             return this.sc.hasNextDouble() && hasNextWithPrefix("-");
         } // -
 
         // Float
-        private final boolean hasNextPositiveFloat() {
+        public final boolean hasNextPositiveFloat() {
             return this.sc.hasNextFloat() && !hasNextWithPrefix("-");
         } // +
-        private final boolean hasNextNegativeFloat() {
+        public final boolean hasNextNegativeFloat() {
             return this.sc.hasNextFloat() && hasNextWithPrefix("-");
         } // -
 
         // Long
-        private final boolean hasNextPositiveLong() {
+        public final boolean hasNextPositiveLong() {
             return this.sc.hasNextLong() && !hasNextWithPrefix("-");
         } // +
-        private final boolean hasNextNegativeLong() {
+        public final boolean hasNextNegativeLong() {
             return this.sc.hasNextLong() && hasNextWithPrefix("-");
         } // -
 
         // Short
-        private final boolean hasNextPositiveShort() {
+        public final boolean hasNextPositiveShort() {
             return this.sc.hasNextShort() && !hasNextWithPrefix("-");
         } // +
-        private final boolean hasNextNegativeShort() {
+        public final boolean hasNextNegativeShort() {
             return this.sc.hasNextShort() && hasNextWithPrefix("-");
         } // -
 
         // Byte
-        private final boolean hasNextPositiveByte() {
+        public final boolean hasNextPositiveByte() {
             return this.sc.hasNextByte() && !hasNextWithPrefix("-");
         } // +
-        private final boolean hasNextNegativeByte() {
+        public final boolean hasNextNegativeByte() {
             return this.sc.hasNextByte() && hasNextWithPrefix("-");
         } // -
 
@@ -361,6 +365,20 @@ public class Swift extends SwiftBase {
     }
 
 
+//█████████████████████████████████████████████████████████████████████████████████████████████████████████
+//██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜████████████████████████████████████████████████████████████████████████████████
+//██▌    Other Methods    ▐████████████████████████████████████████████████████████████████████████████████
+//██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟████████████████████████████████████████████████████████████████████████████████
+
+
+    // Zip
+    public static final <A, B> List<Pair<A, B>> zip(List<A> as, List<B> bs) {
+        return IntStream.range(0, Math.min(as.size(), bs.size()))
+                        .mapToObj(i -> Pair.of(as.get(i), bs.get(i)))
+                        .collect(Collectors.toList());
+    }
+
+
 ////▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██████████████████████████████████████████████████████████████████████████████████████
 } //▌ END OF CLASS  ██████████████████████████████████████████████████████████████████████████████████████
 
@@ -373,91 +391,3 @@ public class Swift extends SwiftBase {
 
 
 
-
-
-//█████████████████████████████████████████████████████████████████████████████████████████████████████████
-//██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜████████████████████████████████████████████████████████████████████████████████
-//██▌     Old Methods     ▐████████████████████████████████████████████████████████████████████████████████
-//██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟████████████████████████████████████████████████████████████████████████████████
-
-
-//  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-////  Reduce Enumeration
-//    public enum Operation {
-//
-//        addition {
-//            @Override public int     apply(int     x, int     y) { return x + y; }
-//            @Override public double  apply(double  x, double  y) { return x + y; }
-//            @Override public long    apply(long    x, long    y) { return x + y; }
-//        },
-//
-//        subtraction {
-//            @Override public int     apply(int     x, int     y) { return x - y; }
-//            @Override public double  apply(double  x, double  y) { return x - y; }
-//            @Override public long    apply(long    x, long    y) { return x - y; }
-//        },
-//
-//        multiplication {
-//            @Override public int     apply(int     x, int     y) { return x * y; }
-//            @Override public double  apply(double  x, double  y) { return x * y; }
-//            @Override public long    apply(long    x, long    y) { return x * y; }
-//        },
-//
-//        division {
-//            @Override public int     apply(int     x, int     y) { return x / y; }
-//            @Override public double  apply(double  x, double  y) { return x / y; }
-//            @Override public long    apply(long    x, long    y) { return x / y; }
-//        };
-//
-//        protected abstract int apply(int x, int y);
-//        protected abstract double apply(double x, double y);
-//        protected abstract long apply(long x, long y);
-//    }
-//
-////  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-////  Reduce Array Lists
-//    public static final int    reduce(ArrayList<Integer> list, Operation operation, int    initialValue) {
-//        for (int element : list.) { initialValue = operation.apply(initialValue, element); }
-//        return initialValue;
-//    }
-//    public static final double reduce(ArrayList<Double>  list, Operation operation, double initialValue) {
-//        //noinspection SingleStatementInBlock
-//        for (double element : list) { initialValue = operation.apply(initialValue, element); }
-//        return initialValue;
-//    }
-//    public static final long   reduce(ArrayList<Long>    list, Operation operation, long   initialValue) {
-//        //noinspection SingleStatementInBlock
-//        for (long element : list) { initialValue = operation.apply(initialValue, element); }
-//        return initialValue;
-//    }
-//
-////  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-////  Reduce Arrays
-//    public static final int    reduce(int[]    arr, Operation operation, int    initialValue) {
-//        for (int element : arr) { initialValue = operation.apply(initialValue, element); }
-//        return initialValue;
-//    }
-//    public static final double reduce(double[] arr, Operation operation, double initialValue) {
-//        for (double element : arr) { initialValue = operation.apply(initialValue, element); }
-//        return initialValue;
-//    }
-//    public static final long   reduce(long[]   arr, Operation operation, long   initialValue) {
-//        for (long element : arr) { initialValue = operation.apply(initialValue, element); }
-//        return initialValue;
-//    }
-//
-////  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-////  Contains
-//    @SuppressWarnings("Convert2streamapi")
-//    public static final <T> boolean contains(ArrayList<T> arrayList, T value) {
-//        for (T element : arrayList) {
-//            if (value.equals(element)) { return true; }
-//        }
-//        return false;
-//    }
-//    public static final <T> boolean contains(T[] array, T value) {
-//        for (T element : array) {
-//            if (value.equals(element)) { return true; }
-//        }
-//        return false;
-//    }
