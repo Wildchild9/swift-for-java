@@ -330,6 +330,19 @@ class SwiftConversion {
     public static SwiftRange SwiftRange(int     lowerBound, Integer upperBound) {
         return new SwiftRange(lowerBound, upperBound);
     }
+    public static SwiftRange range(int     lo, int     hi) {
+        return new SwiftRange(lo, hi);
+    }
+    public static SwiftRange range(Integer lo, Integer hi) {
+        return new SwiftRange(lo, hi);
+    }
+    public static SwiftRange range(Integer lo, int     hi) {
+        return new SwiftRange(lo, hi);
+    }
+    public static SwiftRange range(int     lo, Integer hi) {
+        return new SwiftRange(lo, hi);
+    }
+
 
 
 }

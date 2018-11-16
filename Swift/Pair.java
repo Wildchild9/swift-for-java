@@ -60,7 +60,7 @@ public abstract class Pair<L, R> implements Entry<L, R>, Serializable {
     }
 
     public String toString() {
-        return "(" + this.getLeft() + ',' + this.getRight() + ')';
+        return "(" + this.getLeft() + ", " + this.getRight() + ')';
     }
 
     public String toString(String format) {
@@ -70,36 +70,38 @@ public abstract class Pair<L, R> implements Entry<L, R>, Serializable {
 }
 
 
+
+
 final class ImmutablePair<L, R> extends Pair<L, R> {
-        private static final ImmutablePair NULL = of((Object)null, (Object)null);
-        private static final long serialVersionUID = 4954918890077093841L;
-        public final L left;
-        public final R right;
+    private static final ImmutablePair NULL = of((Object) null, (Object) null);
+    private static final long serialVersionUID = 4954918890077093841L;
+    public final L left;
+    public final R right;
 
-        public static <L, R> ImmutablePair<L, R> nullPair() {
-            return NULL;
-        }
-
-        public static <L, R> ImmutablePair<L, R> of(L left, R right) {
-            return new ImmutablePair(left, right);
-        }
-
-        public ImmutablePair(L left, R right) {
-            this.left = left;
-            this.right = right;
-        }
-
-        public L getLeft() {
-            return this.left;
-        }
-
-        public R getRight() {
-            return this.right;
-        }
-
-        public R setValue(R value) {
-            throw new UnsupportedOperationException();
-        }
-
-
+    public static <L, R> ImmutablePair<L, R> nullPair() {
+        return NULL;
     }
+
+    public static <L, R> ImmutablePair<L, R> of(L left, R right) {
+        return new ImmutablePair(left, right);
+    }
+
+    public ImmutablePair(L left, R right) {
+        this.left = left;
+        this.right = right;
+    }
+
+    public L getLeft() {
+        return this.left;
+    }
+
+    public R getRight() {
+        return this.right;
+    }
+
+    public R setValue(R value) {
+        throw new UnsupportedOperationException();
+    }
+
+
+}

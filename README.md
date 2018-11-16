@@ -18,7 +18,7 @@ Introduction of similar Swift types, functions, and methods in Java.
 ### Compiler Flags
 Please enable assertions in your compiler settings using the flag `-ea`.
 
-To enable assertions, go to **Run > Edit Configurations > Swift** and type `-ea` in the field labeled "VM Options".
+To enable assertions, go to **File > Preferences > Build, Execution, Deployment > Compiler** and type `-ea` in the field labeled "Shared build process VM options".
 
 ### Setup
 Please ensure that both your version of IntelliJ IDEA and version of Java are updated to the most recent versions. Also, please ensure that your project language level is set to the highest number (not including *X - Experimental Features*).

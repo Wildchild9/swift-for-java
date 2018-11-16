@@ -208,12 +208,21 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 
 
 
+//██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜████████████████████████████████████████████████████████████████████████████████
+//██▌     Conversion     ▐████████████████████████████████████████████████████████████████████████████████
+//██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟████████████████████████████████████████████████████████████████████████████████
 
 
-    // Conversion
+    // Array List
     public final ArrayList<Element> toArrayList() {
         return new ArrayList<Element>(this);
     }
+
+    // List
+    public final List<Element> toList() {
+        return (List<Element>) this;
+    }
+
 
 
 
@@ -564,11 +573,9 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return new SwiftArray<Element>(this.stream().sorted().collect(Collectors.toList()));
     }
 
-    public final void sort(){
-        var sortedArr = this.stream().sorted().collect(Collectors.toList());
-        this.clear();
-        this.addAll(sortedArr);
-        sortedArr = null;
+    public final void sort() {
+
+        Collections.sort((List<Comparable>) this);
     }
 
     // High-order sorting by comparator
@@ -770,9 +777,9 @@ public class SwiftArray<Element> extends ArrayList<Element> {
     }
 
     // Enumerated
-    public final <A, B> List<Pair<Integer, Element>> enumerated() {
-        return IntStream.range(0, Math.min(this.indices().count(), this.size()))
-                        .mapToObj(i -> Pair.of(this.indices().count(), this.get(i)))
+    public final List<EnumeratedPair<Element>> enumerated() {
+        return IntStream.range(0, this.size())
+                        .mapToObj(i -> EnumeratedPair.of(i, this.get(i)))
                         .collect(Collectors.toList());
     }
 

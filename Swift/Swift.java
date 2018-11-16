@@ -15,6 +15,8 @@ package Swift;
  */
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -123,18 +125,56 @@ public class Swift extends SwiftBase {
             System.out.print(items + String.valueOf(terminator));
         }
 
+        public static final <T> void withOverheadLine    (              T item) {
 
-    public static final void withOverheadLine(Object... items) {
-            final String joinedItems = Arrays.stream(items).map(i -> String.valueOf(i)).collect(Collectors.joining(" "));
+        final String itemStr = item.toString();
 
-            print(IntStream.range(0, joinedItems.length()).mapToObj(i -> "—").collect(Collectors.joining()));
-            print(joinedItems);
+        var splitStr = SwiftArray(itemStr.split("\n"));
+
+        var maxLength = splitStr.map(s -> s.length()).max((x, y) -> x - y).orElse(0);
+
+
+        if (itemStr.matches("^[\n\r]+(?:(?s).*[\\n\\r]?.*)")) {
+
+            Pattern pattern = Pattern.compile("^([\n\r]+)((?s).*[\\n\\r]?.*)");
+            Matcher matcher = pattern.matcher(itemStr);
+            matcher.find();
+
+            final String line = IntStream.range(0, maxLength).mapToObj(i -> "—").collect(Collectors.joining());
+            print(matcher.group(1) + line + "\n" + matcher.group(2));
+
+        } else {
+            final String line = IntStream.range(0, maxLength).mapToObj(i -> "—").collect(Collectors.joining());
+            print(line + "\n" + itemStr);
         }
-        public static final <T> void withOverheadLine(T item) {
-            final String itemStr = item.toString();
-            print(IntStream.range(0, itemStr.length()).mapToObj(i -> "—").collect(Collectors.joining()));
-            print(item);
+
+
+    }
+        public static final <T> void withTopOverheadLine (              T item) {
+
+        final String itemStr = item.toString();
+
+        if (itemStr.matches("^[\n\r]+(?:(?s).*[\\n\\r]?.*)")) {
+
+            Pattern pattern = Pattern.compile("^([\n\r]+)((?s).*[\\n\\r]?.*)");
+            Matcher matcher = pattern.matcher(itemStr);
+            matcher.find();
+
+            final String line = IntStream.range(0, matcher.group(2).length()).mapToObj(i -> "—").collect(Collectors.joining());
+            print(matcher.group(1) + line + "\n" + matcher.group(2));
+
+        } else {
+
+            final String line = IntStream.range(0, itemStr.length()).mapToObj(i -> "—").collect(Collectors.joining());
+            print(line + "\n" + itemStr);
         }
+
+    }
+        public static final <T> void withOverheadLine    (int ofLength, T item) {
+
+        print(IntStream.range(0, Math.abs(ofLength)).mapToObj(i -> "—").collect(Collectors.joining()));
+        print(item);
+    }
 
         public static final <T> void line(int ofLength) {
             print(IntStream.range(0, Math.abs(ofLength)).mapToObj(i -> "—").collect(Collectors.joining()));
@@ -405,13 +445,6 @@ public class Swift extends SwiftBase {
                         .collect(Collectors.toList());
     }
 
-    // Line
-    private static String line(int length) {
-        final var s = "—";
-        final var n = Math.abs(length);
-
-        return IntStream.range(0, n).mapToObj(i -> s).collect(Collectors.joining());
-    }
 
 
 ////▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██████████████████████████████████████████████████████████████████████████████████████

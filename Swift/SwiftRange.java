@@ -20,6 +20,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 
@@ -74,16 +76,22 @@ public class SwiftRange implements Iterable<Integer> {
         return false;
     }
 
+    // Count
     public int count() {
         return upperBound - lowerBound + 1;
     }
 
+    // Stream
     public Stream<Integer> stream()         {
         return this.toSwiftArray().stream();
     }
     public Stream<Integer> parallelStream() {
         return this.toSwiftArray().parallelStream();
     }
+
+    // Bounds
+    public int lowerBound() { return lowerBound; }
+    public int upperBound() { return upperBound; }
 
     // Conversion methods
     public SwiftArray<Integer> toSwiftArray() {
@@ -133,6 +141,13 @@ public class SwiftRange implements Iterable<Integer> {
         public Integer next() {
             return index++;
         }
+    }
+
+    // Enumerated
+    public final List<EnumeratedPair<Integer>> enumerated() {
+        return IntStream.range(0, this.count())
+                        .mapToObj(i -> EnumeratedPair.of(i, Integer.valueOf(this.lowerBound + i)))
+                        .collect(Collectors.toList());
     }
 
     // To String
