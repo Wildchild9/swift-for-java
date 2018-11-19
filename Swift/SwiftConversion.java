@@ -292,6 +292,14 @@ class SwiftConversion {
     public static <T> String String(T s) {
         return s.toString();
     }
+    public static <T> String StringRepeating(T s, int count) {
+        var stringBuilder = new StringBuilder();
+        var str = s.toString();
+        for (int i = 0; i <= count; i++) {
+            stringBuilder.append(str);
+        }
+        return stringBuilder.toString();
+    }
 
     // SwiftArray conversion and initializer methods
     public static <T> SwiftArray<T>   SwiftArray(Collection<T> collection) {

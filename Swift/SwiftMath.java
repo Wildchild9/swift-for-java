@@ -346,6 +346,7 @@ class SwiftMath extends SwiftConversion {
     }
     public static <T> SwiftArray<T> modes(Collection<T> collection) {
         var dict = new HashMap<T, Integer>();
+
         for (var n : collection) {
             if (dict.containsKey(n)) {
                 dict.replace(n, dict.get(n) + 1);

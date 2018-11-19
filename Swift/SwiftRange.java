@@ -150,6 +150,13 @@ public class SwiftRange implements Iterable<Integer> {
                         .collect(Collectors.toList());
     }
 
+    // Equality
+    public final boolean equals(SwiftRange range) {
+        return this.lowerBound == range.lowerBound && this.upperBound == range.upperBound;
+    }
+
+
+
     // To String
     @Override
     public String toString() {
@@ -158,6 +165,13 @@ public class SwiftRange implements Iterable<Integer> {
             stringBuilder.append(i).append(", ");
         }
         return stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()).toString();
+    }
+    public String toString(String withSeparator) {
+        var stringBuilder = new StringBuilder();
+        for (int i = lowerBound; i <= upperBound; i++) {
+            stringBuilder.append(i).append(withSeparator);
+        }
+        return stringBuilder.delete(stringBuilder.length() - withSeparator.length(), stringBuilder.length()).toString();
     }
 
 }

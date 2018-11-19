@@ -125,11 +125,11 @@ public class Swift extends SwiftBase {
             System.out.print(items + String.valueOf(terminator));
         }
 
-        public static final <T> void withOverheadLine    (              T item) {
+        public static final <T> void withOverheadLine(T    item)  {
 
         final String itemStr = item.toString();
 
-        var splitStr = SwiftArray(itemStr.split("\n"));
+        var splitStr = SwiftArray(itemStr.split("\\s\n"));
 
         var maxLength = splitStr.map(s -> s.length()).max((x, y) -> x - y).orElse(0);
 
@@ -150,7 +150,72 @@ public class Swift extends SwiftBase {
 
 
     }
-        public static final <T> void withTopOverheadLine (              T item) {
+        public static final <T> void withOverheadLine(T... items) {
+
+        final String itemStr = Arrays.stream(items).map(i -> i.toString()).collect(Collectors.joining(" "));
+
+        var splitStr = SwiftArray(itemStr.split("\\s*\n"));
+
+        var maxLength = splitStr.map(s -> s.length()).max((x, y) -> x - y).orElse(0);
+
+
+        if (itemStr.matches("^[\n\r]+(?:(?s).*[\\n\\r]?.*)")) {
+
+            Pattern pattern = Pattern.compile("^([\n\r]+)((?s).*[\\n\\r]?.*)");
+            Matcher matcher = pattern.matcher(itemStr);
+            matcher.find();
+
+            final String line = IntStream.range(0, maxLength).mapToObj(i -> "—").collect(Collectors.joining());
+            print(matcher.group(1) + line + "\n" + matcher.group(2));
+
+        } else {
+            final String line = IntStream.range(0, maxLength).mapToObj(i -> "—").collect(Collectors.joining());
+            print(line + "\n" + itemStr);
+        }
+
+
+    }
+
+        public static final <T> void withOverheadLine(int ofLength, T    item)  {
+
+            var itemStr = item.toString();
+
+            if (itemStr.matches("^[\n\r]+(?:(?s).*[\\n\\r]?.*)")) {
+
+                Pattern pattern = Pattern.compile("^([\n\r]+)((?s).*[\\n\\r]?.*)");
+                Matcher matcher = pattern.matcher(itemStr);
+                matcher.find();
+
+                final String line = IntStream.range(0, Math.abs(ofLength)).mapToObj(i -> "—").collect(Collectors.joining());
+                print(matcher.group(1) + line + "\n" + matcher.group(2));
+
+            } else {
+
+                final String line = IntStream.range(0, Math.abs(ofLength)).mapToObj(i -> "—").collect(Collectors.joining());
+                print(line + "\n" + itemStr);
+            }
+        }
+        public static final <T> void withOverheadLine(int ofLength, T... items) {
+
+            final String itemStr = Arrays.stream(items).map(i -> i.toString()).collect(Collectors.joining(" "));
+
+            if (itemStr.matches("^[\n\r]+(?:(?s).*[\\n\\r]?.*)")) {
+
+                Pattern pattern = Pattern.compile("^([\n\r]+)((?s).*[\\n\\r]?.*)");
+                Matcher matcher = pattern.matcher(itemStr);
+                matcher.find();
+
+                final String line = IntStream.range(0, Math.abs(ofLength)).mapToObj(i -> "—").collect(Collectors.joining());
+                print(matcher.group(1) + line + "\n" + matcher.group(2));
+
+            } else {
+
+                final String line = IntStream.range(0, Math.abs(ofLength)).mapToObj(i -> "—").collect(Collectors.joining());
+                print(line + "\n" + itemStr);
+            }
+        }
+
+        public static final <T> void withTopOverheadLine(T item) {
 
         final String itemStr = item.toString();
 
@@ -169,12 +234,7 @@ public class Swift extends SwiftBase {
             print(line + "\n" + itemStr);
         }
 
-    }
-        public static final <T> void withOverheadLine    (int ofLength, T item) {
-
-        print(IntStream.range(0, Math.abs(ofLength)).mapToObj(i -> "—").collect(Collectors.joining()));
-        print(item);
-    }
+                }
 
         public static final <T> void line(int ofLength) {
             print(IntStream.range(0, Math.abs(ofLength)).mapToObj(i -> "—").collect(Collectors.joining()));

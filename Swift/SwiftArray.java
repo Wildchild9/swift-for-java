@@ -28,9 +28,9 @@ import java.util.stream.IntStream;
 public class SwiftArray<Element> extends ArrayList<Element> {
 
 
-//██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜█████████████████████████████████████████████████████████████████
-//██▌    Initialization & Conversion    ▐█████████████████████████████████████████████████████████████████
-//██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟█████████████████████████████████████████████████████████████████
+//██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜█████████████████████████████████████████████████████████████████████████████
+//██▌    Initialization     ▐█████████████████████████████████████████████████████████████████████████████
+//██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟█████████████████████████████████████████████████████████████████████████████
 
     // Initializers (Constructors)
     public SwiftArray() { }
@@ -38,10 +38,28 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         this.ensureCapacity(elements.length);
         this.addAll(List.of(elements));
     }
+    public SwiftArray(ArrayList<Element> arrayList) {
+        this.ensureCapacity(arrayList.size());
+        this.addAll(arrayList);
+    }
     public <T extends Iterable<Element>> SwiftArray(T iterableElements) {
         for (Element element : iterableElements) {
             this.add(element);
         }
+    }
+
+
+    // Static Initializers
+
+    // Variations of dynamic initializers
+    public static <T> SwiftArray<T> of(T... elements) {
+        return new SwiftArray<T>(elements);
+    }
+    public static <T> SwiftArray<T> of(ArrayList<T> arrayList) {
+        return new SwiftArray<T>(arrayList);
+    }
+    public static <T, U extends Iterable<T>> SwiftArray<T> of(U iterableElements) {
+        return new SwiftArray<T>(iterableElements);
     }
 
     // Array from range
