@@ -1,4 +1,4 @@
-package Swift;
+package SwiftFramework.Swift;
 
 /*
  *
@@ -6,7 +6,7 @@ package Swift;
  * ComputerScience
  *
  *
- * Last modified on 15/11/18 9:20 AM.
+ * Last modified on 19/11/18 1:43 PM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
@@ -15,6 +15,7 @@ package Swift;
  */
 
 import java.math.BigDecimal;
+import java.security.InvalidParameterException;
 import java.util.*;
 
 
@@ -76,7 +77,7 @@ class SwiftMath extends SwiftConversion {
 
     public static SwiftArray<Long> primeFactors(final long of) {
 
-        assert of >= 2 : "Value for prime factorization must be more than or equal to 2";
+        if (!(of >= 2)) throw new ArithmeticException("Value for prime factorization must be more than or equal to 2");
 
         var n = of;
         var primeFactors = new SwiftArray<Long>();
@@ -104,7 +105,7 @@ class SwiftMath extends SwiftConversion {
     }
     public static SwiftArray<Integer> primeFactors(final int of) {
 
-        assert of >= 2 : "Value for prime factorization must be more than or equal to 2";
+        if (!(of >= 2)) throw new ArithmeticException("Value for prime factorization must be more than or equal to 2");
 
         var n = of;
         var primeFactors = new SwiftArray<Integer>();
@@ -236,7 +237,7 @@ class SwiftMath extends SwiftConversion {
 
     public static int factorial(int n) {
 
-        assert n > -13 && n < 13 : "Factorial overflows when stored as an int";
+        if (!(n > -13 && n < 13)) throw new ArithmeticException("Factorial overflows when stored as an int");
 
         int factorial = 1;
 
@@ -254,7 +255,7 @@ class SwiftMath extends SwiftConversion {
     }
     public static long factorial(long n) {
 
-        assert n > -20 && n < 20 : "Factorial overflows when stored as an long";
+        if (!(n > -20 && n < 20)) throw new ArithmeticException("Factorial overflows when stored as a long");
 
         long factorial = 1L;
 
@@ -292,7 +293,6 @@ class SwiftMath extends SwiftConversion {
     }
     public static <T extends Number> double average(Collection<T> collection) {
         return collection.stream().mapToDouble(i -> i.doubleValue()).average().getAsDouble();
-        //return collection.stream().reduce((x, y) -> add(x, y)).get().doubleValue() / (double) collection.size();
     }
 
     @SafeVarargs
@@ -354,8 +354,10 @@ class SwiftMath extends SwiftConversion {
                 dict.put(n, 1);
             }
         }
+
         var maxOccurencesCount = 0;
         var modes = SwiftArray();
+
         for (var pair : dict.entrySet()) {
             if (pair.getValue() > maxOccurencesCount) {
                 modes.clear();
@@ -365,12 +367,13 @@ class SwiftMath extends SwiftConversion {
                 modes.append(pair.getKey());
             }
         }
+
         return modes;
     }
 
     @SafeVarargs
     public static <T extends Number> double median(T...          numbers)    {
-        assert numbers.length > 0 : "Input must contain at least 1 element to find the median";
+        if (!(numbers.length > 0)) throw new InvalidParameterException("Input must contain at least 1 element to find the median");
 
         if (numbers.length % 2 == 0) {
             final var sortedArr = Arrays.stream(numbers).mapToDouble(i -> i.doubleValue()).sorted().toArray();
@@ -381,7 +384,7 @@ class SwiftMath extends SwiftConversion {
         }
     }
     public static <T extends Number> double median(Collection<T> collection) {
-        assert collection.size() > 0 : "Collection must contain at least 1 element to find the median";
+        if (!(collection.size() > 0)) throw new InvalidParameterException("Collection must contain at least 1 element to find the median");
 
         if (collection.size() % 2 == 0) {
             final var sortedArr = collection.stream().mapToDouble(i -> i.doubleValue()).sorted().toArray();

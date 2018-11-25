@@ -1,4 +1,4 @@
-package Swift;
+package SwiftFramework.Swift;
 
 /*
  *
@@ -6,7 +6,7 @@ package Swift;
  * ComputerScience
  *
  *
- * Last modified on 15/11/18 9:20 AM.
+ * Last modified on 19/11/18 1:43 PM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
@@ -14,6 +14,7 @@ package Swift;
  *
  */
 
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
@@ -759,6 +760,34 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         this.ensureCapacity(capacity);
     }
 
+
+//██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜██████████████████████████████████████████████████████████████████████████████
+//██▌    Random Numbers    ▐██████████████████████████████████████████████████████████████████████████████
+//██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟██████████████████████████████████████████████████████████████████████████████
+
+    // Int
+    public static Integer randomInt() {
+        return ThreadLocalRandom.current().nextInt();
+    }
+    public static Integer randomInt(int lo, int hi) {
+        return ThreadLocalRandom.current().nextInt(lo, hi + 1);
+    }
+
+    // Double
+    public static Double randomDouble() {
+        return ThreadLocalRandom.current().nextDouble();
+    }
+    public static Double randomDouble(double lo, double hi) {
+        return ThreadLocalRandom.current().nextDouble(lo, hi + 1);
+    }
+
+    // Long
+    public static Long randomLong() {
+        return ThreadLocalRandom.current().nextLong();
+    }
+    public static Long randomLong(long lo, long hi) {
+        return ThreadLocalRandom.current().nextLong(lo, hi + 1);
+    }
 
 
 //██▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▜███████████████████████████████████████████████████████████████████████████████

@@ -1,4 +1,4 @@
-package Swift;
+package SwiftFramework.Swift;
 
 /*
  *
@@ -6,7 +6,7 @@ package Swift;
  * ComputerScience
  *
  *
- * Last modified on 15/11/18 9:21 AM.
+ * Last modified on 19/11/18 1:43 PM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
@@ -268,7 +268,6 @@ public class Swift extends SwiftBase {
         System.out.println("\nFatal error");
         System.exit(10);
     }
-
 
 //  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 //  Precondition Failure
