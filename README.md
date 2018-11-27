@@ -249,13 +249,13 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 ### Index Methods
 
-- `hasIndex(idx:)` - returns boolean value indicating the validity of the given index in the array
+- `hasIndex(idx:)` - returns boolean value indicating the validity of the given offset in the array
 
 - `indices()` - an array containing the integral indices of an array
 
 - `startIndex()` - the position of the first element in a nonempty array
 
-- `endIndex()` - the array’s “past the end” position—that is, the position one greater than the last valid index
+- `endIndex()` - the array’s “past the end” position—that is, the position one greater than the last valid offset
 
 - `swapAt(i:j:)` - exchanges the values at the specified indices of the array
 
@@ -297,9 +297,9 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `prefix(n:)` - returns an array, up to the specified maximum length, containing the initial elements of the array
 
-- `prefixThrough(index:)`- returns an array from the start of the initial array through the specified position
+- `prefixThrough(offset:)`- returns an array from the start of the initial array through the specified position
 
-- `prefixUpTo(index:)` - returns an array from the start of the initial array up to, but not including, the specified position
+- `prefixUpTo(offset:)` - returns an array from the start of the initial array up to, but not including, the specified position
 
 - `prefixWhile(predicate:)` - returns an array containing the initial elements until `predicate` returns `false` and skipping the remaining elements
 
@@ -307,7 +307,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `suffix(n:)` - returns an array, up to the given maximum length, containing the final elements of the initial array
 
-- `suffixFrom(index:)` - returns an array from the specified position to the end of the initial array
+- `suffixFrom(offset:)` - returns an array from the specified position to the end of the initial array
 
 - `suffixWhile(predicate:)` - returns an array containing the final elements until `predicate` returns `false` and skipping the remaining elements
 
@@ -319,13 +319,13 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `firstWhere(predicate:)` - returns the first element of the array that satisfies the given predicate
 
-- `firstIndexWhere(predicate:)` - returns the first index in which an element of the array satisfies the given predicate
+- `firstIndexWhere(predicate:)` - returns the first offset in which an element of the array satisfies the given predicate
 
 - `last()` - the last element of the array
 
 - `lastWhere(predicate:)` - returns the last element of the array that satisfies the given predicate
 
-- `lastIndexWhere(predicate:)` - returns the index of the last element in the array that matches the given predicate
+- `lastIndexWhere(predicate:)` - returns the offset of the last element in the array that matches the given predicate
 
     ---
 
@@ -333,7 +333,7 @@ Swift Math contains all of the same methods included within `java.util.Math` alo
 
 - `randomElement()` - returns a random element of the array
 
-- `randomIndex()` - returns a random index of the array
+- `randomIndex()` - returns a random offset of the array
 
 - `shuffle()` - shuffles the array in place
 

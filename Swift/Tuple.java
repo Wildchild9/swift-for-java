@@ -3,10 +3,10 @@ package Swift;
 /*
  *
  * Tuple.java
- * ComputerScience
+ * Swift for Java
  *
  *
- * Last modified on 19/11/18 1:43 PM.
+ * Last modified on 27/11/18 10:56 AM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in

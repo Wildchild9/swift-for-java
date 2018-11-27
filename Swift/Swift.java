@@ -3,10 +3,10 @@ package Swift;
 /*
  *
  * Swift.java
- * ComputerScience
+ * Swift for Java
  *
  *
- * Last modified on 19/11/18 1:43 PM.
+ * Last modified on 27/11/18 10:56 AM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
@@ -14,6 +14,8 @@ package Swift;
  *
  */
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -504,6 +506,37 @@ public class Swift extends SwiftBase {
                         .collect(Collectors.toList());
     }
 
+    // Read file
+    public static String readFile(String path) {
+        var str = new StringBuilder();
+
+        var file = new File(path);
+        Scanner sc;
+
+        try {
+            sc = new Scanner(file);
+        } catch(FileNotFoundException error) {
+            if (path.length() < 6 || !path.substring(0, 6).equals("/Users")) {
+                var userDir = System.getProperty("user.dir");
+                var p = Pattern.compile("^(/[^/]+/[^/]+/)");
+                var match = p.matcher(userDir);
+                match.find();
+                var newPath = match.group(1) + path;
+                return readFile(newPath);
+            }
+            throw new IllegalArgumentException("File not found at path: " + path);
+        }
+
+        while (sc.hasNextLine()) {
+            str.append(sc.nextLine());
+            str.append("\n");
+        }
+
+        sc.close();
+
+        return str.toString();
+
+    }
 
 
 ////▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██████████████████████████████████████████████████████████████████████████████████████

@@ -3,10 +3,10 @@ package Swift;
 /*
  *
  * SwiftArray.java
- * ComputerScience
+ * Swift for Java
  *
  *
- * Last modified on 19/11/18 1:43 PM.
+ * Last modified on 27/11/18 10:56 AM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
@@ -14,7 +14,6 @@ package Swift;
  *
  */
 
-import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
@@ -306,17 +305,17 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         this.addAll(contentsOf);
     }
 
-    // Insert element at index in SwiftArray
+    // Insert element at offset in SwiftArray
     public final void insert(Element element, int atIndex) {
-        assert atIndex >= 0 && atIndex < size() : "SwiftArray index for insertion is out of bounds";
+        assert atIndex >= 0 && atIndex < size() : "SwiftArray offset for insertion is out of bounds";
 
         this.add(atIndex, element);
 
     }
 
-    // Insert elements in collection at index in SwiftArray
+    // Insert elements in collection at offset in SwiftArray
     public final <T extends Collection<Element>> void insert(T contentsOf, int atIndex) {
-        assert atIndex >= 0 && atIndex < size() : "SwiftArray index for insertion is out of bounds";
+        assert atIndex >= 0 && atIndex < size() : "SwiftArray offset for insertion is out of bounds";
 
         for (Element element : contentsOf) {
             this.add(atIndex, element);
@@ -326,7 +325,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 
     // Insert elements in iterable type in SwiftArray
     public final <T extends Iterable<Element>> void insert(T contentsOf, int atIndex) {
-        assert atIndex >= 0 && atIndex < size() : "SwiftArray index for insertion is out of bounds";
+        assert atIndex >= 0 && atIndex < size() : "SwiftArray offset for insertion is out of bounds";
 
         for (Element element : contentsOf) {
             this.add(atIndex, element);
@@ -341,7 +340,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 //██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟███████████████████████████████████████████████████████████████████████████
 
 
-    // Remove at index
+    // Remove at offset
     public final Element removeElement(int atIndex) {
         return this.remove(atIndex);
     }
@@ -427,20 +426,20 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         }
     }
 
-    // Prefix up to index
+    // Prefix up to offset
      public final SwiftArray<Element> prefixUpTo(final int index) {
         assert index >= 0 : "Can't form Range with upperBound < lowerBound";
-        assert index <= this.size() : "SwiftArray index is out of range";
+        assert index <= this.size() : "SwiftArray offset is out of range";
 
         return new SwiftArray<Element>(this.subList(0, index));
     }
 
-    // Prefix through index
+    // Prefix through offset
      public final SwiftArray<Element> prefixThrough(final int index) {
         assert index + 1 >= 0 : "Can't form Range with upperBound < lowerBound";
 
         if (index + 1 > this.size() || index + 1 < 0) {
-            throw new ArrayIndexOutOfBoundsException("SwiftArray index is out of range");
+            throw new ArrayIndexOutOfBoundsException("SwiftArray offset is out of range");
         } else {
             return new SwiftArray<Element>(this.subList(0, index + 1));
         }
@@ -463,9 +462,9 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 
     }
 
-    // Suffix from index
+    // Suffix from offset
      public final SwiftArray<Element> suffixFrom(final int index) {
-        assert index >= 0: "Negative SwiftArray index is out of range";
+        assert index >= 0: "Negative SwiftArray offset is out of range";
         assert index <= this.size() : "Can't form Range with upperBound < lowerBound";
 
         return new SwiftArray<Element>(this.subList(index, this.size()));
@@ -513,7 +512,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 
      }
 
-    // High-order First/Last index where predicate is met
+    // High-order First/Last offset where predicate is met
      public final Optional<Integer> firstIndexWhere(Predicate<Element> predicate) {
         for (int i = 0; i < this.size(); i++) {
             final Element element = this.get(i);
@@ -548,7 +547,7 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return this.get(randomIdx);
     }
 
-    // Random index
+    // Random offset
     public final int randomIndex() {
         assert !this.isEmpty(): "Cannot return value from an empty array";
 
@@ -706,17 +705,17 @@ public class SwiftArray<Element> extends ArrayList<Element> {
 //██▌    Slice Methods    ▐███████████████████████████████████████████████████████████████████████████████
 //██▙▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▟███████████████████████████████████████████████████████████████████████████████
 
-    // Checks if a given index is valid in the context the SwiftArray
+    // Checks if a given offset is valid in the context the SwiftArray
     public final boolean hasIndex(int idx) {
         return !this.isEmpty() && idx >= 0 && idx < size();
     }
 
-    // Return slice of array between a particular index
+    // Return slice of array between a particular offset
     public final SwiftArray<Element> toSlice(int lowerBound, int upperBound) {
         assert !this.isEmpty() : "Can't form slice from an empty array";
         assert lowerBound <= upperBound + 1 : "Can't form Range with upperBound < lowerBound";
         assert lowerBound >= 0 && lowerBound < size() &&
-               upperBound >= 0 && upperBound < size()   : "SwiftArray index is out of range";
+               upperBound >= 0 && upperBound < size()   : "SwiftArray offset is out of range";
 
         return new SwiftArray<Element>(this.subList(lowerBound, upperBound + 1));
 
@@ -804,12 +803,12 @@ public class SwiftArray<Element> extends ArrayList<Element> {
         return new SwiftRange(0, this.size() - 1);
     }
 
-    // Start index
+    // Start offset
     public final int startIndex() {
         return 0;
     }
 
-    // End index
+    // End offset
     public final int endIndex() {
         return size() + 1;
     }

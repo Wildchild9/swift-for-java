@@ -3,10 +3,10 @@ package Swift;
 /*
  *
  * EnumeratedPair.java
- * ComputerScience
+ * Swift for Java
  *
  *
- * Last modified on 19/11/18 1:43 PM.
+ * Last modified on 27/11/18 10:56 AM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
@@ -18,37 +18,30 @@ public class EnumeratedPair<Element> extends Pair<Integer, Element> {
 
     private static final long serialVersionUID = 4954918890077093841L;
 
-    public final int index;
+    public final int offset;
     public Element element;
 
-    public static <T> EnumeratedPair<T> of(int index, T element) {
-        return new EnumeratedPair<T>(index, element);
+    public static <T> EnumeratedPair<T> of(int offset, T element) {
+        return new EnumeratedPair<T>(offset, element);
     }
 
-    public EnumeratedPair(int index, Element element) {
-        this.index = index;
+    public EnumeratedPair(int offset, Element element) {
+        this.offset = offset;
         this.element = element;
     }
-    public EnumeratedPair(Integer index, Element element) {
-        this.index = index;
+    public EnumeratedPair(Integer offset, Element element) {
+        this.offset = offset;
         this.element = element;
     }
 
     public EnumeratedPair(Pair<Integer, Element> pair) {
-        this.index = pair.getLeft();
+        this.offset = pair.getLeft();
         this.element = pair.getRight();
     }
 
-//    public Integer index() {
-//        return index;
-//    }
-//    public Element element() {
-//        return element;
-//    }
-
     @Override
     public Integer getLeft() {
-        return index;
+        return offset;
     }
 
     @Override
@@ -64,33 +57,3 @@ public class EnumeratedPair<Element> extends Pair<Integer, Element> {
     }
 }
 
-
-//    private static final ImmutablePair NULL = of((Object) null, (Object) null);
-//    private static final long serialVersionUID = 4954918890077093841L;
-//    public final L left;
-//    public final R right;
-//
-//    public static <L, R> ImmutablePair<L, R> nullPair() {
-//        return NULL;
-//    }
-//
-//    public static <L, R> ImmutablePair<L, R> of(L left, R right) {
-//            return new ImmutablePair(left, right);
-//        }
-//
-//    public ImmutablePair(L left, R right) {
-//            this.left = left;
-//            this.right = right;
-//    }
-//
-//    public L getLeft() {
-//        return this.left;
-//    }
-//
-//    public R getRight() {
-//        return this.right;
-//    }
-//
-//    public R setValue(R value) {
-//        throw new UnsupportedOperationException();
-//    }

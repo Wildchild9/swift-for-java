@@ -3,10 +3,10 @@ package Swift;
 /*
  *
  * SwiftMath.java
- * ComputerScience
+ * Swift for Java
  *
  *
- * Last modified on 19/11/18 1:43 PM.
+ * Last modified on 27/11/18 10:56 AM.
  *
  * Copyright © 2018 Noah Wilder. All rights reserved.
  * This file is subject to the terms and conditions defined in
@@ -323,51 +323,52 @@ class SwiftMath extends SwiftConversion {
 
     @SafeVarargs
     public static <T> SwiftArray<T> modes(T...          elements)   {
+
+        if (elements.length == 0) return new SwiftArray<T>();
+
         var dict = new HashMap<T, Integer>();
+        var maxOccurrences = 1;
+
         for (var n : elements) {
             if (dict.containsKey(n)) {
-                dict.replace(n, dict.get(n) + 1);
+                var occurrences = dict.get(n) + 1;
+                if (occurrences > maxOccurrences) maxOccurrences = occurrences;
+                dict.replace(n, occurrences);
             } else {
                 dict.put(n, 1);
             }
         }
-        var maxCount = 0;
-        var modes = SwiftArray();
+
+        var modes = new SwiftArray<T>();
         for (var pair : dict.entrySet()) {
-            if (pair.getValue() > maxCount) {
-                modes.clear();
-                modes.append(pair.getKey());
-                maxCount = pair.getValue();
-            } else if (pair.getValue() == maxCount) {
+            if (pair.getValue() == maxOccurrences) {
                 modes.append(pair.getKey());
             }
         }
         return modes;
     }
     public static <T> SwiftArray<T> modes(Collection<T> collection) {
+        if (collection.size() == 0) return new SwiftArray<T>();
+
         var dict = new HashMap<T, Integer>();
+        var maxOccurrences = 1;
 
         for (var n : collection) {
             if (dict.containsKey(n)) {
-                dict.replace(n, dict.get(n) + 1);
+                var occurrences = dict.get(n) + 1;
+                if (occurrences > maxOccurrences) maxOccurrences = occurrences;
+                dict.replace(n, occurrences);
             } else {
                 dict.put(n, 1);
             }
         }
 
-        var maxOccurencesCount = 0;
-        var modes = SwiftArray();
-
+        var modes = new SwiftArray<T>();
         for (var pair : dict.entrySet()) {
-            if (pair.getValue() > maxOccurencesCount) {
-                modes.clear();
-                modes.append(pair.getKey());
-                maxOccurencesCount = pair.getValue();
-            } else if (pair.getValue() == maxOccurencesCount) {
+            if (pair.getValue() == maxOccurrences) {
                 modes.append(pair.getKey());
             }
         }
-
         return modes;
     }
 
