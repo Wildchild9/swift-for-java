@@ -1,18 +1,16 @@
 package Swift;
 
-/*
- *
- * Tuple.java
- * Swift for Java
- *
- *
- * Last modified on 27/11/18 10:56 AM.
- *
- * Copyright © 2018 Noah Wilder. All rights reserved.
- * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
- *
- */
+//
+// Tuple.java
+// Swift for Java
+//
+//
+// Last modified on 27/11/18 11:13 AM.
+//
+// Copyright © 2018 Noah Wilder. All rights reserved.
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE', which is part of this source code package.
+//
 
 import java.util.Map;
 

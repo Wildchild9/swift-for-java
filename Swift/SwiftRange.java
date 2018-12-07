@@ -1,21 +1,18 @@
 package Swift;
 
-/*
- *
- * SwiftRange.java
- * Swift for Java
- *
- *
- * Last modified on 27/11/18 10:56 AM.
- *
- * Copyright © 2018 Noah Wilder. All rights reserved.
- * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
- *
- */
+//
+// SwiftRange.java
+// Swift for Java
+//
+//
+// Last modified on 28/11/18 10:01 AM.
+//
+// Copyright © 2018 Noah Wilder. All rights reserved.
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE', which is part of this source code package.
+//
 
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -44,7 +41,6 @@ public class SwiftRange implements Iterable<Integer> {
     }
 
     // Iterable methods
-    @NotNull
     @Override
     public Iterator<Integer> iterator() {
         return swiftRangeIterator;

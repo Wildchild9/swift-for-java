@@ -1,18 +1,16 @@
 package Swift;
 
-/*
- *
- * SwiftMath.java
- * Swift for Java
- *
- *
- * Last modified on 27/11/18 10:56 AM.
- *
- * Copyright © 2018 Noah Wilder. All rights reserved.
- * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
- *
- */
+//
+// SwiftMath.java
+// Swift for Java
+//
+//
+// Last modified on 04/12/18 6:20 PM.
+//
+// Copyright © 2018 Noah Wilder. All rights reserved.
+// This file is subject to the terms and conditions defined in
+// file 'LICENSE', which is part of this source code package.
+//
 
 import java.math.BigDecimal;
 import java.security.InvalidParameterException;
@@ -133,16 +131,15 @@ class SwiftMath extends SwiftConversion {
     }
 
 
-    public static boolean primality(final long of) {
-
-        var n = of;
+    public static boolean isPrime(final long n) {
 
         if (n < 2)  return false;
         if (n == 2) return true;
+        if (n % 2 == 0) return false;
 
-        var i = 2L;
+        final var sqrtN = (long) Math.sqrt(n);
 
-        while (i <= (long) Math.sqrt(n)) {
+        for (long i = 3; i <= sqrtN; i += 2L) {
             if (n % i == 0) {
                 return false;
             }
@@ -150,16 +147,15 @@ class SwiftMath extends SwiftConversion {
 
         return true;
     }
-    public static boolean primality(final int of) {
-
-        var n = of;
+    public static boolean isPrime(final int n)  {
 
         if (n < 2)  return false;
         if (n == 2) return true;
+        if (n % 2 == 0) return false;
 
-        var i = 2;
+        final var sqrtN = (int) Math.sqrt(n);
 
-        while (i <= (int) Math.sqrt(n)) {
+        for (int i = 3; i <= sqrtN; i += 2) {
             if (n % i == 0) {
                 return false;
             }
