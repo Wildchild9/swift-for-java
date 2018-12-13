@@ -1,4 +1,4 @@
-package Swift;//
+package Swift;;//
 //
 // SwiftScanner.java
 // Swift for Java
@@ -27,9 +27,11 @@ import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+
 @SuppressWarnings({"SingleStatementInBlock", "unused", "WeakerAccess"})
 public class SwiftScanner implements Iterator<String>, Closeable {
 
+    public LazyScanner lazy = new LazyScanner();
     private Scanner sc;
 
     // Constructors
@@ -37,54 +39,67 @@ public class SwiftScanner implements Iterator<String>, Closeable {
         this.sc = new Scanner(source);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(InputStream source) {
         this.sc = new Scanner(source);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(InputStream source, String charsetName) {
         this.sc = new Scanner(source, charsetName);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(InputStream source, Charset charset) {
         this.sc = new Scanner(source, charset);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(File source) throws FileNotFoundException {
         this.sc = new Scanner(source);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(File source, String charsetName) throws FileNotFoundException {
         this.sc = new Scanner(source, charsetName);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(File source, Charset charset) throws IOException {
         this.sc = new Scanner(source, charset);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(Path source) throws IOException {
         this.sc = new Scanner(source);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(Path source, String charsetName) throws IOException {
         this.sc = new Scanner(source, charsetName);
         this.sc.useDelimiter("\n");
     }
-    public SwiftScanner(Path source, Charset charset)  throws IOException {
+
+    public SwiftScanner(Path source, Charset charset) throws IOException {
         this.sc = new Scanner(source, charset);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(String source) {
         this.sc = new Scanner(source);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(ReadableByteChannel source) {
         this.sc = new Scanner(source);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(ReadableByteChannel source, String charsetName) {
         this.sc = new Scanner(source, charsetName);
         this.sc.useDelimiter("\n");
     }
+
     public SwiftScanner(ReadableByteChannel source, Charset charset) {
         this.sc = new Scanner(source, charset);
         this.sc.useDelimiter("\n");
@@ -327,104 +342,6 @@ public class SwiftScanner implements Iterator<String>, Closeable {
         return sc.findAll(patString);
     }
 
-    public LazyScanner lazy = new LazyScanner();
-
-    protected class LazyScanner {
-
-        private LazyScanner() { }
-
-        public String next() {
-            sc.hasNext("(.*)");
-            return sc.match().group(0);
-        }
-        public String nextLine() {
-            sc.hasNext("(.*)");
-            return sc.match().group(0);
-        }
-        public int nextInt() {
-            sc.hasNext("(.*)");
-
-            try {
-                return Integer.parseInt(sc.match().group(0));
-            }
-            catch (NumberFormatException e) {
-                throw new InputMismatchException();
-            }
-
-        }
-        public long nextLong() {
-            sc.hasNext("(.*)");
-            try {
-                return Long.parseLong(sc.match().group(0));
-            }
-            catch (NumberFormatException e) {
-                throw new InputMismatchException();
-            }
-        }
-        public double nextDouble() {
-            sc.hasNext("(.*)");
-            try {
-                return Double.parseDouble(sc.match().group(0));
-            }
-            catch (NumberFormatException e) {
-                throw new InputMismatchException();
-            }
-        }
-        public short nextShort() {
-            sc.hasNext("(.*)");
-            try {
-                return Short.parseShort(sc.match().group(0));
-            }
-            catch (NumberFormatException e) {
-                throw new InputMismatchException();
-            }
-        }
-        public byte nextByte() {
-            sc.hasNext("(.*)");
-            try {
-                return Byte.parseByte(sc.match().group(0));
-            }
-            catch (NumberFormatException e) {
-                throw new InputMismatchException();
-            }
-        }
-        public float nextFloat() {
-            sc.hasNext("(.*)");
-            try {
-                return Float.parseFloat(sc.match().group(0));
-            }
-            catch (NumberFormatException e) {
-                throw new InputMismatchException();
-            }
-        }
-        public boolean nextBoolean() {
-            sc.hasNext("(.*)");
-            try {
-                return Boolean.parseBoolean(sc.match().group(0));
-            } catch (NumberFormatException e) {
-                throw new InputMismatchException();
-            }
-
-        }
-        public BigInteger nextBigInteger() {
-            sc.hasNext("(.*)");
-            try {
-                return new BigInteger(sc.match().group(0));
-            } catch (NumberFormatException e) {
-                throw new InputMismatchException();
-            }
-        }
-        public BigDecimal nextBigDecimal() {
-            sc.hasNext("(.*)");
-            try {
-                return new BigDecimal(sc.match().group(0));
-            } catch (NumberFormatException e) {
-                throw new InputMismatchException();
-            }
-        }
-        
-    }
-
     // Next methods with predicates
     public String next(Predicate<String> predicate) {
         var satisfiesPredicate = false;
@@ -450,25 +367,16 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return s;
     }
+
     public String next(Predicate<String> predicate, String invalidInputMessage) {
-        var useInputInMessage = false;
-        var pattern = Pattern.compile("(\\*input\\*)");
-        var match = pattern.matcher(invalidInputMessage);
-        String[] strArray;
-        if (match.groupCount() > 0) {
-            useInputInMessage = true;
-            strArray = invalidInputMessage.split("\\*input\\*");
-        } else {
-            strArray = null;
-        }
-
-
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
         var satisfiesPredicate = false;
         var s = "";
         while (!satisfiesPredicate) {
             String message;
             if (useInputInMessage) {
-                message = String.join(this.lazy.nextLine(), strArray);
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
             } else {
                 message = invalidInputMessage;
             }
@@ -518,25 +426,18 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return s;
     }
-    public String nextLine(Predicate<String> predicate, String invalidInputMessage) {
-        var useInputInMessage = false;
-        var pattern = Pattern.compile("(\\*input\\*)");
-        var match = pattern.matcher(invalidInputMessage);
-        String[] strArray;
-        if (match.groupCount() > 0) {
-            useInputInMessage = true;
-            strArray = invalidInputMessage.split("\\*input\\*");
-        } else {
-            strArray = null;
-        }
 
+    public String nextLine(Predicate<String> predicate, String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
 
         var satisfiesPredicate = false;
+
         var s = "";
         while (!satisfiesPredicate) {
             String message;
             if (useInputInMessage) {
-                message = String.join(this.lazy.nextLine(), strArray);
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
             } else {
                 message = invalidInputMessage;
             }
@@ -586,17 +487,17 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return n;
     }
+
     public int nextInt(Predicate<Integer> predicate, String invalidInputMessage) {
 
         var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
 
         var satisfiesPredicate = false;
-        var n = 0 ;
+        var n = 0;
         while (!satisfiesPredicate) {
             String message;
             if (useInputInMessage) {
-                Pattern p = Pattern.compile("\\*input\\*",
-                                            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
                 message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
             } else {
                 message = invalidInputMessage;
@@ -648,6 +549,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return n;
     }
+
     public double nextDouble(Predicate<Double> predicate, String invalidInputMessage) {
 
         var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
@@ -657,8 +559,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
         while (!satisfiesPredicate) {
             String message;
             if (useInputInMessage) {
-                Pattern p = Pattern.compile("\\*input\\*",
-                                            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
                 message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
             } else {
                 message = invalidInputMessage;
@@ -710,6 +611,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return n;
     }
+
     public float nextFloat(Predicate<Float> predicate, String invalidInputMessage) {
 
         var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
@@ -719,8 +621,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
         while (!satisfiesPredicate) {
             String message;
             if (useInputInMessage) {
-                Pattern p = Pattern.compile("\\*input\\*",
-                                            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
                 message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
             } else {
                 message = invalidInputMessage;
@@ -772,6 +673,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return n;
     }
+
     public long nextLong(Predicate<Long> predicate, String invalidInputMessage) {
 
         var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
@@ -781,8 +683,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
         while (!satisfiesPredicate) {
             String message;
             if (useInputInMessage) {
-                Pattern p = Pattern.compile("\\*input\\*",
-                                            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
                 message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
             } else {
                 message = invalidInputMessage;
@@ -834,6 +735,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return n;
     }
+
     public short nextShort(Predicate<Short> predicate, String invalidInputMessage) {
 
         var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
@@ -843,8 +745,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
         while (!satisfiesPredicate) {
             String message;
             if (useInputInMessage) {
-                Pattern p = Pattern.compile("\\*input\\*",
-                                            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
                 message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
             } else {
                 message = invalidInputMessage;
@@ -896,6 +797,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return n;
     }
+
     public byte nextByte(Predicate<Byte> predicate, String invalidInputMessage) {
 
         var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
@@ -905,8 +807,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
         while (!satisfiesPredicate) {
             String message;
             if (useInputInMessage) {
-                Pattern p = Pattern.compile("\\*input\\*",
-                                            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
                 message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
             } else {
                 message = invalidInputMessage;
@@ -958,6 +859,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return n;
     }
+
     public BigInteger nextBigInteger(Predicate<BigInteger> predicate, String invalidInputMessage) {
 
         var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
@@ -967,8 +869,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
         while (!satisfiesPredicate) {
             String message;
             if (useInputInMessage) {
-                Pattern p = Pattern.compile("\\*input\\*",
-                                            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
                 message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
             } else {
                 message = invalidInputMessage;
@@ -1020,6 +921,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return n;
     }
+
     public BigDecimal nextBigDecimal(Predicate<BigDecimal> predicate, String invalidInputMessage) {
 
         var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
@@ -1029,8 +931,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
         while (!satisfiesPredicate) {
             String message;
             if (useInputInMessage) {
-                Pattern p = Pattern.compile("\\*input\\*",
-                                            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
                 message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
             } else {
                 message = invalidInputMessage;
@@ -1082,6 +983,7 @@ public class SwiftScanner implements Iterator<String>, Closeable {
 
         return n;
     }
+
     public boolean nextBoolean(boolean value, String invalidInputMessage) {
         var useInputInMessage = false;
         var pattern = Pattern.compile("(\\*input\\*)");
@@ -1126,49 +1028,430 @@ public class SwiftScanner implements Iterator<String>, Closeable {
         return n;
     }
 
+    // Next valid input methods
+    public String nextValid(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNext()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
 
-    // Note:
-    //   - Occurrences of "*input*" in invalidInputMessage
-    //     will be replaced with the value of the invalid input.
-    //
+            System.out.println(message);
+            sc.nextLine();
+        }
+        return sc.next();
+    }
+    public String nextValid() {
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.next();
+    }
+
+    public String nextValidLine(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNextLine()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
+
+            System.out.println(message);
+            sc.nextLine();
+        }
+        return sc.nextLine();
+    }
+    public String nextValidLine() {
+        while (!sc.hasNextLine()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.nextLine();
+    }
+
+    public int nextValidInt(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNextInt()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
+
+            System.out.println(message);
+            sc.nextLine();
+        }
+        return sc.nextInt();
+    }
+    public int nextValidInt() {
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.nextInt();
+    }
+
+    public double nextValidDouble(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNextDouble()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
+
+            System.out.println(message);
+            sc.nextLine();
+        }
+        return sc.nextDouble();
+    }
+    public double nextValidDouble() {
+        while (!sc.hasNextDouble()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.nextDouble();
+    }
+
+    public long nextValidLong(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNextLong()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
+
+            System.out.println(message);
+            sc.nextLine();
+        }
+        return sc.nextLong();
+    }
+    public long nextValidLong() {
+        while (!sc.hasNextLong()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.nextLong();
+    }
+
+    public short nextValidShort(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNextShort()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
+
+            System.out.println(message);
+            sc.nextLine();
+        }
+        return sc.nextShort();
+    }
+    public short nextValidShort() {
+        while (!sc.hasNextShort()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.nextShort();
+    }
+
+    public BigInteger nextValidBigInteger(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNextBigInteger()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
+
+            System.out.println(message);
+            sc.nextLine();
+        }
+        return sc.nextBigInteger();
+    }
+    public BigInteger nextValidBigInteger() {
+        while (!sc.hasNextBigInteger()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.nextBigInteger();
+    }
+
+    public BigDecimal nextValidBigDecimal(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNextBigDecimal()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
+
+            System.out.println(message);
+            sc.nextLine();
+        }
+        return sc.nextBigDecimal();
+    }
+    public BigDecimal nextValidBigDecimal() {
+        while (!sc.hasNextBigDecimal()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.nextBigDecimal();
+    }
+
+    public boolean nextValidBoolean(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNextBoolean()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
+
+            System.out.println(message);
+            sc.nextLine();
+        }
+        return sc.nextBoolean();
+    }
+    public boolean nextValidBoolean() {
+        while (!sc.hasNextBoolean()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.nextBoolean();
+    }
+
+    public byte nextValidByte(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNextByte()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
+
+            System.out.println(message);
+            sc.nextLine();
+        } return sc.nextByte();
+    }
+    public byte nextValidByte() {
+        while (!sc.hasNextByte()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.nextByte();
+    }
+
+    public float nextValidFloat(String invalidInputMessage) {
+        var useInputInMessage = Pattern.compile("(\\*input\\*)").matcher(invalidInputMessage).groupCount() > 0;
+        while (!sc.hasNextFloat()) {
+            String message;
+            if (useInputInMessage) {
+                Pattern p = Pattern.compile("\\*input\\*", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+                message = p.matcher(invalidInputMessage).replaceAll(this.lazy.nextLine());
+            } else {
+                message = invalidInputMessage;
+            }
+
+            System.out.println(message);
+            sc.nextLine();
+        }
+        return sc.nextFloat();
+    }
+    public float nextValidFloat() {
+        while (!sc.hasNextFloat()) {
+            System.out.println("Invalid input, please try again");
+            sc.nextLine();
+        }
+        return sc.nextFloat();
+    }
 
 
     // Has next methods that check if a predicate is also satisfied
     public boolean hasNext(Predicate<String> predicate) {
         return this.hasNext() && predicate.test(this.lazy.next());
     }
+
+
+    // Note:
+    //   - Occurrences of "*input*" in invalidInputMessage
+    //     will be replaced with the value of the invalid input.
+    //
+
     public boolean hasNextLine(Predicate<String> predicate) {
         return this.hasNextLine() && predicate.test(this.lazy.nextLine());
     }
+
     public boolean hasNextBoolean(Predicate<Boolean> predicate) {
         return this.hasNextBoolean() && predicate.test(this.lazy.nextBoolean());
     }
+
     public boolean hasNextByte(Predicate<Byte> predicate) {
         return this.hasNextByte() && predicate.test(this.lazy.nextByte());
     }
+
     public boolean hasNextShort(Predicate<Short> predicate) {
         return this.hasNextShort() && predicate.test(this.lazy.nextShort());
     }
+
     public boolean hasNextInt(Predicate<Integer> predicate) {
         return this.hasNextInt() && predicate.test(this.lazy.nextInt());
     }
+
     public boolean hasNextLong(Predicate<Long> predicate) {
         return this.hasNextLong() && predicate.test(this.lazy.nextLong());
     }
+
     public boolean hasNextFloat(Predicate<Float> predicate) {
         return this.hasNextFloat() && predicate.test(this.lazy.nextFloat());
     }
+
     public boolean hasNextDouble(Predicate<Double> predicate) {
         return this.hasNextDouble() && predicate.test(this.lazy.nextDouble());
     }
+
     public boolean hasNextBigInteger(Predicate<BigInteger> predicate) {
         return this.hasNextBigInteger() && predicate.test(this.lazy.nextBigInteger());
     }
+
     public boolean hasNextBigDecimal(Predicate<BigDecimal> predicate) {
         return this.hasNextBigDecimal() && predicate.test(this.lazy.nextBigDecimal());
     }
 
+    public class LazyScanner {
 
+        private LazyScanner() { }
+
+        public String next() {
+            sc.hasNext("(.*)");
+            return sc.match().group(0);
+        }
+
+        public String nextLine() {
+            sc.hasNext("(.*)");
+            return sc.match().group(0);
+        }
+
+        public int nextInt() {
+            sc.hasNext("(.*)");
+
+            try {
+                return Integer.parseInt(sc.match().group(0));
+            }
+            catch (NumberFormatException e) {
+                throw new InputMismatchException();
+            }
+
+        }
+
+        public long nextLong() {
+            sc.hasNext("(.*)");
+            try {
+                return Long.parseLong(sc.match().group(0));
+            }
+            catch (NumberFormatException e) {
+                throw new InputMismatchException();
+            }
+        }
+
+        public double nextDouble() {
+            sc.hasNext("(.*)");
+            try {
+                return Double.parseDouble(sc.match().group(0));
+            }
+            catch (NumberFormatException e) {
+                throw new InputMismatchException();
+            }
+        }
+
+        public short nextShort() {
+            sc.hasNext("(.*)");
+            try {
+                return Short.parseShort(sc.match().group(0));
+            }
+            catch (NumberFormatException e) {
+                throw new InputMismatchException();
+            }
+        }
+
+        public byte nextByte() {
+            sc.hasNext("(.*)");
+            try {
+                return Byte.parseByte(sc.match().group(0));
+            }
+            catch (NumberFormatException e) {
+                throw new InputMismatchException();
+            }
+        }
+
+        public float nextFloat() {
+            sc.hasNext("(.*)");
+            try {
+                return Float.parseFloat(sc.match().group(0));
+            }
+            catch (NumberFormatException e) {
+                throw new InputMismatchException();
+            }
+        }
+
+        public boolean nextBoolean() {
+            sc.hasNext("(.*)");
+            try {
+                return Boolean.parseBoolean(sc.match().group(0));
+            }
+            catch (NumberFormatException e) {
+                throw new InputMismatchException();
+            }
+
+        }
+
+        public BigInteger nextBigInteger() {
+            sc.hasNext("(.*)");
+            try {
+                return new BigInteger(sc.match().group(0));
+            }
+            catch (NumberFormatException e) {
+                throw new InputMismatchException();
+            }
+        }
+
+        public BigDecimal nextBigDecimal() {
+            sc.hasNext("(.*)");
+            try {
+                return new BigDecimal(sc.match().group(0));
+            }
+            catch (NumberFormatException e) {
+                throw new InputMismatchException();
+            }
+        }
+
+    }
 }
 
 

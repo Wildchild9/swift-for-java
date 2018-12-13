@@ -1,4 +1,4 @@
-package Swift;
+package Swift;;
 
 //
 // Swift.java
@@ -534,6 +534,11 @@ public class Swift extends SwiftBase {
 
         return str.toString();
 
+    }
+
+    // Tuple
+    public static final <A, B> Tuple<A, B> tuple(A a, B b) {
+        return new Tuple<A, B>(a, b);
     }
 
 

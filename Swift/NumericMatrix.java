@@ -1,4 +1,4 @@
-package Swift;
+package Swift;;
 
 //
 // NumericMatrix.java
