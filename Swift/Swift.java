@@ -1,4 +1,4 @@
-package Swift;;
+package Swift;
 
 //
 // Swift.java
@@ -541,6 +541,47 @@ public class Swift extends SwiftBase {
         return new Tuple<A, B>(a, b);
     }
 
+    // Superscripts/Subscripts
+    private static String superscript(int n) {
+        var s = "" + n;
+
+        s = s.replace("+", "\u207a");
+        s = s.replace("-", "\u207b");
+        s = s.replace("0", "\u2070");
+        s = s.replace("1", "\u00b9");
+        s = s.replace("2", "\u00b2");
+        s = s.replace("3", "\u00b3");
+        s = s.replace("4", "\u2074");
+        s = s.replace("5", "\u2075");
+        s = s.replace("6", "\u2076");
+        s = s.replace("7", "\u2077");
+        s = s.replace("8", "\u2078");
+        s = s.replace("9", "\u2079");
+
+        //⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻
+
+        return s;
+    }
+    private static String subscript(int n) {
+        var s = "" + n;
+
+        s = s.replace("0", "\u2080");
+        s = s.replace("1", "\u0081");
+        s = s.replace("2", "\u0082");
+        s = s.replace("3", "\u0083");
+        s = s.replace("4", "\u2084");
+        s = s.replace("5", "\u2085");
+        s = s.replace("6", "\u2086");
+        s = s.replace("7", "\u2087");
+        s = s.replace("8", "\u2088");
+        s = s.replace("9", "\u2089");
+        s = s.replace("+", "\u207a");
+        s = s.replace("-", "\u207b");
+
+        //₀₁₂₃₄₅₆₇₈₉₊₋
+
+        return s;
+    }
 
 ////▛▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██████████████████████████████████████████████████████████████████████████████████████
 } //▌ END OF CLASS  ██████████████████████████████████████████████████████████████████████████████████████

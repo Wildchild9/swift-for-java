@@ -1,4 +1,6 @@
-package Swift;;//
+package Swift;
+
+//
 //
 // SwiftScanner.java
 // Swift for Java

@@ -1,4 +1,4 @@
-package Swift;;
+package Swift;
 
 //
 // SwiftConversion.java
@@ -352,3 +352,6 @@ class SwiftConversion {
 
 
 }
+
+
+

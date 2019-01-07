@@ -1,4 +1,4 @@
-package Swift;;
+package ;
 
 //
 // Pair.java
